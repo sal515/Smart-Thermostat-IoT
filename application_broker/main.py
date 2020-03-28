@@ -35,37 +35,37 @@ publishersJson = "publishers.txt"
 
 
 # Testing mosquitto broker with  the python paho mqtt client library
-# import paho.mqtt.client as mqtt
-# import time
-#
-#
-# def on_message(client, userdata, message):
-#     print("message received --> ", str(message.payload.decode("utf-8")))
-#     print("message topic -->", message.topic)
-#     print("message qos -->", message.qos)
-#     print("message retain flag -->", message.retain)
-#
-#
-# myIP = "192.168.0.115"
-# topic = "yes/no"
-#
-# client = mqtt.Client("thermostat")
-# client.connect(myIP)
-#
-# # receiver = mqtt.Client("app")
-# # receiver.on_message = on_message
-# # receiver.connect(myIP)
-#
-# client.on_message = on_message
-# client.connect(myIP)
-# client.subscribe(topic)
-#
-# # client.publish(topic, "yes")
-#
-# client.loop_start()  # start the loop
-# print("Subscribing to topic", topic)
-# client.subscribe(topic)
-# print("Publishing message to topic", topic)
-# client.publish(topic, "off")
-# time.sleep(4)  # wait
-# client.loop_stop()  # stop the loop
+import paho.mqtt.client as mqtt
+import time
+import socket
+
+def on_message(client, userdata, message):
+    print("message received --> ", str(message.payload.decode("utf-8")))
+    print("message topic -->", message.topic)
+    print("message qos -->", message.qos)
+    print("message retain flag -->", message.retain)
+
+
+myIP = socket.gethostbyname(socket.gethostname())
+topic = "yes/no"
+
+client = mqtt.Client("thermostat")
+client.connect(myIP)
+
+# receiver = mqtt.Client("app")
+# receiver.on_message = on_message
+# receiver.connect(myIP)
+
+client.on_message = on_message
+client.connect(myIP)
+client.subscribe(topic)
+
+# client.publish(topic, "yes")
+
+client.loop_start()  # start the loop
+print("Subscribing to topic", topic)
+client.subscribe(topic)
+print("Publishing message to topic", topic)
+client.publish(topic, "off")
+time.sleep(4)  # wait
+client.loop_stop()  # stop the loop
