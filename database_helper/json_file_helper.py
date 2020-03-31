@@ -1,6 +1,7 @@
 import os
 import json as json
 import database_helper.directory_helper as directoryHelper
+import models as model
 
 
 def json_to_file(data, fileName, directoryName, ascii=True):
@@ -33,3 +34,7 @@ def file_to_json(fileName, directoryName):
         print("Error: ", e)
 
     return data
+
+
+# def update_user_info(newName: str=None, newTemp: int=None, newIsHome: bool=None):
+#     if()
