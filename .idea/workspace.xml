@@ -2,12 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d503fbf4-2943-480d-98ef-0af25ecfdf3f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/deviceinfo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application_broker/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/broker/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/broker/broker_logic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database_helper/json_file_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_helper/json_file_helper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api_publisher/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api_publisher/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app_client/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application_client/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_client/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application_thermostat/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_thermostat/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/broker/app.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/broker_api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_broker/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/broker_api/subscribers_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_broker/subscribers_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/userInfo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mosquitto_broker/mosquitto-1.6.9-install-windows-x64.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mosquitto_broker/mosquitto-1.6.9-install-windows-x64.exe" beforeDir="false" afterPath="$PROJECT_DIR$/unused/mosquitto-1.6.9-install-windows-x64.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/publisher/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_subscriber/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/publisher/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_subscriber/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subscriber/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_publisher/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subscriber/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_client/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +38,7 @@
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/application_thermostat/main.py">
+            <entry file="file://$PROJECT_DIR$/app_thermostat/main.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="561">
                   <caret line="33" column="14" lean-forward="true" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
@@ -52,12 +62,12 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/application_client/main.py">
+            <entry file="file://$PROJECT_DIR$/app_client/main.py">
               <provider selected="true" editor-type-id="text-editor" />
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/models/user_info.py">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/models/userInfo.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="238">
                   <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
@@ -65,7 +75,7 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/models/deviceinfo.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="289">
@@ -84,7 +94,7 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/broker_api/__init__.py">
+            <entry file="file://$PROJECT_DIR$/api_broker/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state>
                   <caret column="34" selection-start-column="34" selection-end-column="34" />
@@ -93,7 +103,7 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/broker_api/subscribers_handler.py">
+            <entry file="file://$PROJECT_DIR$/api_broker/subscribers_handler.py">
               <provider selected="true" editor-type-id="text-editor" />
             </entry>
           </file>
@@ -123,7 +133,7 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/broker/app.py">
+            <entry file="file://$PROJECT_DIR$/app_broker/app.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="374">
                   <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
@@ -147,7 +157,7 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/publisher/__init__.py">
+            <entry file="file://$PROJECT_DIR$/api_publisher/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="17">
                   <caret line="1" selection-end-line="1" />
@@ -224,31 +234,6 @@
             <path>
               <item name="Smart-Thermostat-IoT" type="b2602c69:ProjectViewProjectNode" />
               <item name="Smart-Thermostat-IoT" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Smart-Thermostat-IoT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Thermostat-IoT" type="462c0819:PsiDirectoryNode" />
-              <item name="broker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Smart-Thermostat-IoT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Thermostat-IoT" type="462c0819:PsiDirectoryNode" />
-              <item name="broker_api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Smart-Thermostat-IoT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Thermostat-IoT" type="462c0819:PsiDirectoryNode" />
-              <item name="database_helper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Smart-Thermostat-IoT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Thermostat-IoT" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Smart-Thermostat-IoT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Thermostat-IoT" type="462c0819:PsiDirectoryNode" />
-              <item name="mosquitto_broker" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -425,12 +410,12 @@
       <workItem from="1585252839523" duration="6392000" />
       <workItem from="1585268959292" duration="13949000" />
       <workItem from="1585358096163" duration="7634000" />
-      <workItem from="1585625801789" duration="2706000" />
+      <workItem from="1585625801789" duration="3037000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32749000" />
+    <option name="totallyTimeSpent" value="33080000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -442,7 +427,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -466,17 +451,17 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client_application/__init__.py" />
     <entry file="file://$PROJECT_DIR$/broker/broker_databaseHelper.py" />
-    <entry file="file://$PROJECT_DIR$/subscriber/main.py">
+    <entry file="file://$PROJECT_DIR$/api_subscriber/main.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/subscriber/__init__.py">
+    <entry file="file://$PROJECT_DIR$/api_subscriber/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/publisher/main.py">
+    <entry file="file://$PROJECT_DIR$/api_publisher/main.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/application_broker/database/jsn" />
@@ -522,7 +507,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/publisher/__init__.py">
+    <entry file="file://$PROJECT_DIR$/api_publisher/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" selection-end-line="1" />
@@ -579,10 +564,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application_client/main.py">
+    <entry file="file://$PROJECT_DIR$/app_client/main.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/application_thermostat/main.py">
+    <entry file="file://$PROJECT_DIR$/app_thermostat/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="33" column="14" lean-forward="true" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
@@ -613,7 +598,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/broker/app.py">
+    <entry file="file://$PROJECT_DIR$/app_broker/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
@@ -623,14 +608,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/broker_api/__init__.py">
+    <entry file="file://$PROJECT_DIR$/api_broker/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="34" selection-start-column="34" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/broker_api/subscribers_handler.py">
+    <entry file="file://$PROJECT_DIR$/api_broker/subscribers_handler.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/models/publisher.py">
@@ -640,17 +625,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/user_info.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/deviceinfo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/userInfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>

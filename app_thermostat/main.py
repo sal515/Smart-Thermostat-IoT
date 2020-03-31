@@ -39,7 +39,7 @@ publishersJson = "publishers.txt"
 # timA = model.asUserInfo(userdata)
 # print(tim.name)
 
-# # Testing mosquitto broker with  the python paho mqtt client library
+# # Testing mosquitto app_broker with  the python paho mqtt client library
 # import paho.mqtt.client as mqtt
 # import time
 # import socket

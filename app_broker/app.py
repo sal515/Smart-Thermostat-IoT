@@ -12,7 +12,7 @@ from flask_api import FlaskAPI, status, exceptions
 # Import CORS for communication between decoupled server
 from flask_cors import CORS
 
-import broker_api as brokerApi
+import api_broker as brokerApi
 
 # Initialize FlaskApi App
 app = FlaskAPI(__name__)
