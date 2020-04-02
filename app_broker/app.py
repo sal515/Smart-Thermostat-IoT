@@ -19,11 +19,6 @@ app = FlaskAPI(__name__)
 CORS(app)
 
 
-
-
-
-
-
 @app.route('/')
 def home():
     return {"Smart Thermostat": "IoT project"}
