@@ -34,10 +34,22 @@ publishersJson = "publishers.txt"
 # # print(tim)
 
 # # Test to save userInfo object to file and read it back as object
+
+# tim = model.userInfo("Tim", 19, False)
 # db.json_to_file(tim.asDict(), topicsJson, databaseDirectoryName)
 # userdata = db.file_to_json(topicsJson, databaseDirectoryName)
 # timA = model.asUserInfo(userdata)
 # print(tim.name)
+
+# print(db.isfile(topicsJson))
+
+
+
+
+
+
+
+
 
 # # Testing mosquitto app_broker with  the python paho mqtt client library
 # import paho.mqtt.client as mqtt
@@ -74,3 +86,4 @@ publishersJson = "publishers.txt"
 # client.publish(topic, "off")
 # time.sleep(4)  # wait
 # client.loop_stop()  # stop the loop
+
