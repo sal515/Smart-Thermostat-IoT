@@ -6,23 +6,29 @@ import models as model
 defaultDirectory = "database"
 
 
-def json_to_file(data, fileName, directoryName=defaultDirectory, ascii=True):
+def generate_dirPath_filePath(directoryName, topicName):
+    fileName = topicName.replace("/", "_")
     dirPath = os.path.join("./", directoryName)
     fpath = os.path.join(dirPath, fileName + ".txt")
+    return dirPath, fpath
+
+
+def json_to_file(dataObjAsDict, topicName: str, directoryName=defaultDirectory, ascii=True):
+    dirPath, fpath = generate_dirPath_filePath(directoryName, topicName)
 
     if not directoryHelper.checkDir(dirPath):
         directoryHelper.createDir(directoryName)
 
     with open(fpath, "w") as outfile:
         if ascii:
-            json.dump(data, outfile, indent=4, sort_keys=True, ensure_ascii=True)
+            json.dump(dataObjAsDict, outfile, indent=4, sort_keys=True, ensure_ascii=True)
         else:
-            json.dump(data, outfile, indent=4, sort_keys=True, ensure_ascii=False)
+            json.dump(dataObjAsDict, outfile, indent=4, sort_keys=True, ensure_ascii=False)
 
 
-def file_to_json(fileName, directoryName=defaultDirectory):
-    dirPath = os.path.join("./", directoryName)
-    fpath = os.path.join(dirPath, fileName + ".txt")
+def file_to_json(topicName: str, directoryName=defaultDirectory):
+    dirPath, fpath = generate_dirPath_filePath(directoryName, topicName)
+
     data = None
 
     if not directoryHelper.checkDir(dirPath):
@@ -38,9 +44,9 @@ def file_to_json(fileName, directoryName=defaultDirectory):
     return data
 
 
-def isfile(fileName, directoryName=defaultDirectory, debug=False):
-    dirPath = os.path.join("./", directoryName)
-    fpath = os.path.join(dirPath, fileName + ".txt")
+def isfile(topicName: str, directoryName=defaultDirectory, debug=False):
+    dirPath, fpath = generate_dirPath_filePath(directoryName, topicName)
+
     if os.path.exists(path=fpath):
         if debug:
             print("file exists")
@@ -50,6 +56,3 @@ def isfile(fileName, directoryName=defaultDirectory, debug=False):
         if debug:
             print("file does not exist")
         return False
-
-# def update_user_info(newName: str=None, newTemp: int=None, newIsHome: bool=None):
-#     if()
