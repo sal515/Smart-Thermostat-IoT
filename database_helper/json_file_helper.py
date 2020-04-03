@@ -3,10 +3,12 @@ import json as json
 import database_helper.directory_helper as directoryHelper
 import models as model
 
+defaultDirectory = "database"
 
-def json_to_file(data, fileName, directoryName, ascii=True):
+
+def json_to_file(data, fileName, directoryName=defaultDirectory, ascii=True):
     dirPath = os.path.join("./", directoryName)
-    fpath = os.path.join(dirPath, fileName)
+    fpath = os.path.join(dirPath, fileName + ".txt")
 
     if not directoryHelper.checkDir(dirPath):
         directoryHelper.createDir(directoryName)
@@ -18,9 +20,9 @@ def json_to_file(data, fileName, directoryName, ascii=True):
             json.dump(data, outfile, indent=4, sort_keys=True, ensure_ascii=False)
 
 
-def file_to_json(fileName, directoryName):
+def file_to_json(fileName, directoryName=defaultDirectory):
     dirPath = os.path.join("./", directoryName)
-    fpath = os.path.join(dirPath, fileName)
+    fpath = os.path.join(dirPath, fileName + ".txt")
     data = None
 
     if not directoryHelper.checkDir(dirPath):
@@ -35,6 +37,19 @@ def file_to_json(fileName, directoryName):
 
     return data
 
+
+def isfile(fileName, directoryName=defaultDirectory, debug=False):
+    dirPath = os.path.join("./", directoryName)
+    fpath = os.path.join(dirPath, fileName + ".txt")
+    if os.path.exists(path=fpath):
+        if debug:
+            print("file exists")
+        return True
+
+    else:
+        if debug:
+            print("file does not exist")
+        return False
 
 # def update_user_info(newName: str=None, newTemp: int=None, newIsHome: bool=None):
 #     if()
