@@ -10,5 +10,5 @@ class deviceInfo:
         return dict(deviceID=self.deviceID, deviceIP=self.deviceIP, deviceURL=self.deviceURL)
 
 
-def asUserInfo(dic):
+def asDeviceInfo(dic):
     return deviceInfo(dic["deviceID"], dic["deviceIP"], dic["deviceURL"])

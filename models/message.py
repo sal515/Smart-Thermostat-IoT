@@ -10,5 +10,5 @@ class message:
         return dict(messageID=self.messageID, userInfo=self.userInfo, sourceDeviceInfo=self.sourceDeviceInfo)
 
 
-def asUserInfo(dic):
+def asMessage(dic):
     return message(dic["messageID"], dic["userInfo"], dic["sourceDeviceInfo"])

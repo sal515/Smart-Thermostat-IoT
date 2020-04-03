@@ -1,14 +1,15 @@
 # from typing import NamedTuple
 
 class topic:
-    def __init__(self, subscribers: [] = [], publishers: [] = [], messages: [] = []):
+    def __init__(self, topic: str, subscribers: [] = [], publishers: [] = [], messages: [] = []):
+        self.topic = topic
         self.subscribers = subscribers
         self.publishers = publishers
         self.messages = messages
 
     def asDict(self):
-        return dict(subscribers=self.subscribers, publishers=self.publishers, messages=self.messages)
+        return dict(topic=self.topic, subscribers=self.subscribers, publishers=self.publishers, messages=self.messages)
 
 
-def asUserInfo(dic):
-    return topic(dic["subscribers"], dic["publishers"], dic["messages"])
+def asTopic(dictionary):
+    return topic(dictionary["topic"], dictionary["subscribers"], dictionary["publishers"], dictionary["messages"])
