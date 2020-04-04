@@ -14,14 +14,12 @@ from flask_cors import CORS
 
 import api_broker as brokerApi
 
-
 import requests as req
-import threading as thread
-import time as t
 
+# import threading as thread
+# import time as t
 
-
-
+import models as models
 
 # Initialize FlaskApi App
 app = FlaskAPI(__name__)
@@ -30,15 +28,28 @@ CORS(app)
 
 @app.route('/')
 def home():
-
-    brokerApi.test()
-
-    return {"Smart Thermostat": "IoT project"}
+    return {"MQTT Broker": "IoT project"}
 
 
 @app.route('/subscription/request', methods=['POST'])
-def subscriberRegistration():
-    return {"Smart Thermostat": "IoT project"}
+def subscriberRegistrationRequest():
+    if request.is_json:
+        receivedData = request.get_json()
+        print(receivedData)
+
+        deviceInfoDict = receivedData["deviceInfo"]
+        deviceInfo = models.asDeviceInfo(deviceInfoDict)
+        topic = receivedData["topic"]
+
+        state, deviceInfo = brokerApi.registerSubscriber(deviceInfo=deviceInfo, topic=topic)
+
+        print(state)
+        print(deviceInfo.asDict())
+
+        data = dict(state=state, deviceInfo=deviceInfo.asDict())
+        r = req.post(url="http://localhost:2500/subscription/acknowledge", data=None, json=data)
+
+        return {"Subscription request processing": "IoT project"}
 
 
 if __name__ == '__main__':
