@@ -28,6 +28,8 @@ CORS(app)
 @app.route('/')
 def home():
 
+
+    #  Testing call: To test subcription to a topic by a user
     # call subscribe methods url
     deviceInfo = models.deviceInfo(0, "000.000.000.000", "http://127.0.0.1:2000/")
     topic = "data/user_preference"

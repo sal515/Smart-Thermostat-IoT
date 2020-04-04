@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d503fbf4-2943-480d-98ef-0af25ecfdf3f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app_client/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_broker/subscribers_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_broker/subscribers_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_broker/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_broker/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_client/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/jsonEncoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_thermostat/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_thermostat/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database_helper/json_file_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_helper/json_file_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_client/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_client/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,8 +41,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app_client/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="371">
-                  <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+                <state relative-caret-position="224">
+                  <caret line="31" column="61" selection-start-line="31" selection-start-column="61" selection-end-line="31" selection-end-column="61" />
                   <folding>
                     <element signature="e#135#169#0" expanded="true" />
                   </folding>
@@ -86,7 +79,7 @@
             <entry file="file://$PROJECT_DIR$/app_broker/app.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="403">
-                  <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+                  <caret line="42" selection-start-line="42" selection-end-line="42" />
                   <folding>
                     <element signature="e#135#169#0" expanded="true" />
                   </folding>
@@ -153,8 +146,8 @@
         <option value="$PROJECT_DIR$/database/data_user_preference.txt" />
         <option value="$PROJECT_DIR$/app_client/main.py" />
         <option value="$PROJECT_DIR$/api_broker/subscribers_handler.py" />
-        <option value="$PROJECT_DIR$/app_client/app.py" />
         <option value="$PROJECT_DIR$/app_broker/app.py" />
+        <option value="$PROJECT_DIR$/app_client/app.py" />
       </list>
     </option>
   </component>
@@ -393,12 +386,12 @@
       <workItem from="1585252839523" duration="6392000" />
       <workItem from="1585268959292" duration="13949000" />
       <workItem from="1585358096163" duration="7634000" />
-      <workItem from="1585625801789" duration="38063000" />
+      <workItem from="1585625801789" duration="38519000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68106000" />
+    <option name="totallyTimeSpent" value="68562000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
@@ -685,20 +678,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_client/app.py">
+    <entry file="file://$PROJECT_DIR$/app_broker/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+        <state relative-caret-position="403">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
           <folding>
             <element signature="e#135#169#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_broker/app.py">
+    <entry file="file://$PROJECT_DIR$/app_client/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+        <state relative-caret-position="224">
+          <caret line="31" column="61" selection-start-line="31" selection-start-column="61" selection-end-line="31" selection-end-column="61" />
           <folding>
             <element signature="e#135#169#0" expanded="true" />
           </folding>
