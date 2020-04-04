@@ -21,9 +21,10 @@ def json_to_file(dataObjAsDict, topicName: str, directoryName=defaultDirectory, 
 
     with open(fpath, "w") as outfile:
         if ascii:
-            json.dump(dataObjAsDict, outfile, indent=4, sort_keys=True, ensure_ascii=True)
+            json.dump(dataObjAsDict, outfile, indent=4, sort_keys=True, ensure_ascii=True,
+                      cls=model.encoder)
         else:
-            json.dump(dataObjAsDict, outfile, indent=4, sort_keys=True, ensure_ascii=False)
+            json.dump(dataObjAsDict, outfile, indent=4, sort_keys=True, ensure_ascii=False, cls=model.encoder)
 
 
 def file_to_json(topicName: str, directoryName=defaultDirectory):
