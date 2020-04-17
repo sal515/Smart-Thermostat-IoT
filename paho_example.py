@@ -12,6 +12,7 @@ def on_message(client, userdata, message):
 
 
 myIP = socket.gethostbyname(socket.gethostname())
+print(myIP)
 topic = "yes/no"
 
 # client = mqtt.Client("thermostat")
@@ -19,7 +20,9 @@ topic = "yes/no"
 
 client = mqtt.Client(client_id="thermostat", clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
 
-client.connect(myIP)
+# client.connect(host=myIP, port=1883, keepalive=60, bind_address="")
+client.connect(host=myIP, port=1881, keepalive=60, bind_address="")
+
 client.on_message = on_message
 
 client.loop_start()  # start the loop
