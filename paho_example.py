@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 import time
 import socket
 
+
 def on_message(client, userdata, message):
     print("message received --> ", str(message.payload.decode("utf-8")))
     print("message topic -->", message.topic)
@@ -13,14 +14,18 @@ def on_message(client, userdata, message):
 myIP = socket.gethostbyname(socket.gethostname())
 topic = "yes/no"
 
-client = mqtt.Client("thermostat")
+# client = mqtt.Client("thermostat")
+# client = mqtt.Client(client_id="thermostat", clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
+
+client = mqtt.Client(client_id="thermostat", clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
+
 client.connect(myIP)
 client.on_message = on_message
 
 client.loop_start()  # start the loop
-# print("Subscribing to topic", topic)
-client.subscribe(topic)
-# print("Publishing message to topic", topic)
-client.publish(topic, "off")
-time.sleep(4)  # wait
+# # print("Subscribing to topic", topic)
+# client.subscribe(topic)
+# # print("Publishing message to topic", topic)
+# client.publish(topic, "off")
+# time.sleep(4)  # wait
 client.loop_stop()  # stop the loop
