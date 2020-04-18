@@ -15,7 +15,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         # self.print_socket_details()
-        clientAddress = self.client_address
+        # clientAddress = self.client_address
 
         # self.request is the TCP socket connected to the client
         self.data = self.request.recv(1024).strip()
@@ -28,14 +28,13 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
         try:
 
-            packet_info = cp.info(self.data)
+            packet_info = cp.processing(self.data)
             print("packet type: ", packet_info.packet_type)
-            print("packet remaining length: ", packet_info.remaining_length)
-            print("packet index: ", packet_info.byte_list_index)
-            print("packet remaining bytes in list: ", packet_info.variable_payload_header)
+            print("packet remaining length: ", packet_info.packet_remaining_length)
+            print("packet remaining bytes in list: ", packet_info.reduced_packet_bytes)
 
-            cp.processing.process_packet(packet_info)
-            print("packet remaining bytes in list: ", packet_info.variable_payload_header)
+            # cp.processing.process_packet(packet_info)
+            # print("packet remaining bytes in list: ", packet_info.variable_payload_header)
 
         except Exception as e:
             if e == "Invalid Protocol":
@@ -48,18 +47,18 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
         # sock: socket.socket = None
         sock: socket.socket = self.request
-        sockFamily = sock.family
-        sockType = sock.type
-        sockProto = sock.proto
-        sockLaddr = sock.getsockname()
-        sockRaddr = sock.getpeername()
-        sockFd = sock.fileno()
-        print(sockFamily)
-        print(sockType)
-        print(sockProto)
-        print(sockLaddr)
-        print(sockRaddr)
-        print(sockFd)
+        sock_family = sock.family
+        sock_type = sock.type
+        sock_proto = sock.proto
+        sock_laddr = sock.getsockname()
+        sock_raddr = sock.getpeername()
+        sock_fd = sock.fileno()
+        print(sock_family)
+        print(sock_type)
+        print(sock_proto)
+        print(sock_laddr)
+        print(sock_raddr)
+        print(sock_fd)
 
 
 if __name__ == "__main__":
