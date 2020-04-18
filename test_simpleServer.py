@@ -1,7 +1,7 @@
 import socketserver
 import socket
 
-import control_packets
+import control_packets as cp
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
@@ -28,19 +28,20 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
         try:
 
-            packet_info = control_packets.info(self.data)
-            packet_info.process_packet()
-
+            packet_info = cp.info(self.data)
             print("packet type: ", packet_info.packet_type)
             print("packet remaining length: ", packet_info.remaining_length)
-            print("packet remaining bytes in list: ", packet_info.remaining_received_bytes)
+            print("packet index: ", packet_info.byte_list_index)
+            print("packet remaining bytes in list: ", packet_info.variable_payload_header)
+
+            cp.processing.process_packet(packet_info)
+            print("packet remaining bytes in list: ", packet_info.variable_payload_header)
 
         except Exception as e:
             if e == "Invalid Protocol":
                 print("Error: {}".format(e))
             else:
                 print(e)
-
 
     def print_socket_details(self):
         print(self.request)

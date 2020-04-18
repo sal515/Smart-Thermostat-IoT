@@ -8,3 +8,5 @@ database_helper/__pycache__/
 application_broker/database/
 
 models/__pycache__/
+
+control_packets/__pycache__/
