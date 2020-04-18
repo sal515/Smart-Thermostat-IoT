@@ -15,7 +15,13 @@ myIP = socket.gethostbyname(socket.gethostname())
 print(myIP)
 topic = "yes/no"
 
+
+
 client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
+
+
+client.will_set("aTopic", "client will msg", 2, True)
+client.username_pw_set("me", "yes")
 
 # client = mqtt.Client(client_id="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",    clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
 

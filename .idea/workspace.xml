@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d503fbf4-2943-480d-98ef-0af25ecfdf3f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/control_packets/flags.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/control_packets/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/control_packets/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/control_packets/info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/control_packets/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/control_packets/methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control_packets/processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/control_packets/processing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/paho_example.py" beforeDir="false" afterPath="$PROJECT_DIR$/paho_example.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_simpleServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_simpleServer.py" afterDir="false" />
     </list>
@@ -18,7 +21,7 @@
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$paho_example.coverage" NAME="paho_example Coverage Results" MODIFIED="1587104131052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$broker_databaseHelper.coverage" NAME="broker_databaseHelper Coverage Results" MODIFIED="1585256438630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/broker" />
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$main__2_.coverage" NAME="main (2) Coverage Results" MODIFIED="1587085426258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/application_broker" />
-    <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$test_simpleServer.coverage" NAME="test_simpleServer Coverage Results" MODIFIED="1587188772697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$test_simpleServer.coverage" NAME="test_simpleServer Coverage Results" MODIFIED="1587200306883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$main.coverage" NAME="main Coverage Results" MODIFIED="1585258421044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/broker" />
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1585258426124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/broker_application" />
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$test_simpleServer_mqtt_listener.coverage" NAME="test_simpleServer_mqtt_listener Coverage Results" MODIFIED="1587155009415" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -27,40 +30,32 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <splitter split-orientation="horizontal" split-proportion="0.5">
-            <split-first>
-              <leaf>
-                <file pinned="false" current-in-tab="true">
-                  <entry file="file://$PROJECT_DIR$/test_simpleServer.py">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="504">
-                        <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
-                        <folding>
-                          <element signature="e#0#19#0" expanded="true" />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-              </leaf>
-            </split-first>
-            <split-second>
-              <leaf>
-                <file pinned="false" current-in-tab="true">
-                  <entry file="file://$PROJECT_DIR$/test_simpleServer.py">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="519">
-                        <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
-                        <folding>
-                          <element signature="e#0#19#0" expanded="true" />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-              </leaf>
-            </split-second>
-          </splitter>
+          <leaf>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/test_simpleServer.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="563">
+                    <caret line="34" column="86" selection-start-line="34" selection-start-column="86" selection-end-line="34" selection-end-column="86" />
+                    <folding>
+                      <element signature="e#0#19#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/paho_example.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="483">
+                    <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+                    <folding>
+                      <element signature="e#69#100#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
         </state>
       </content>
     </window>
@@ -69,19 +64,29 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/control_packets/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="189">
-                  <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+                <state relative-caret-position="655">
+                  <caret line="29" selection-start-line="29" selection-end-line="29" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/control_packets/flags.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="378">
+                  <caret line="42" selection-start-line="42" selection-end-line="43" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/control_packets/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
+                <state relative-caret-position="42">
+                  <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
                   <folding>
                     <element signature="e#0#25#0" expanded="true" />
                   </folding>
@@ -93,23 +98,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/paho_example.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="525">
-                  <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-                  <folding>
-                    <element signature="e#69#100#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/control_packets/processing.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-357">
-                  <caret line="1" selection-start-line="1" selection-end-line="1" />
+                <state relative-caret-position="-126">
+                  <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
                 </state>
               </provider>
             </entry>
@@ -137,6 +130,8 @@
       <find>pop_a_msb</find>
       <find>self.byte_list_index</find>
       <find>packet_info.packet_type</find>
+      <find>try</find>
+      <find>None</find>
       <find>_remaining_length_bytes</find>
     </findStrings>
     <replaceStrings>
@@ -144,6 +139,7 @@
       <replace>self.index</replace>
       <replace>packet_info</replace>
       <replace>index</replace>
+      <replace>0</replace>
       <replace>self.packet_type</replace>
     </replaceStrings>
   </component>
@@ -178,12 +174,13 @@
         <option value="$PROJECT_DIR$/broker.py" />
         <option value="$PROJECT_DIR$/test_simpleServer_mqtt_listener.py" />
         <option value="$PROJECT_DIR$/control_packets/control_packets.py" />
-        <option value="$PROJECT_DIR$/paho_example.py" />
         <option value="$PROJECT_DIR$/control_packets/info.py" />
-        <option value="$PROJECT_DIR$/test_simpleServer.py" />
-        <option value="$PROJECT_DIR$/control_packets/methods.py" />
-        <option value="$PROJECT_DIR$/control_packets/processing.py" />
+        <option value="$PROJECT_DIR$/paho_example.py" />
         <option value="$PROJECT_DIR$/control_packets/__init__.py" />
+        <option value="$PROJECT_DIR$/control_packets/flags.py" />
+        <option value="$PROJECT_DIR$/test_simpleServer.py" />
+        <option value="$PROJECT_DIR$/control_packets/processing.py" />
+        <option value="$PROJECT_DIR$/control_packets/methods.py" />
       </list>
     </option>
   </component>
@@ -215,6 +212,11 @@
               <item name="Smart-Thermostat-IoT" type="b2602c69:ProjectViewProjectNode" />
               <item name="Smart-Thermostat-IoT" type="462c0819:PsiDirectoryNode" />
               <item name="databaseHelper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Smart-Thermostat-IoT" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Smart-Thermostat-IoT" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -347,23 +349,23 @@
       <workItem from="1587081010807" duration="2345000" />
       <workItem from="1587087689202" duration="18249000" />
       <workItem from="1587151473158" duration="538000" />
-      <workItem from="1587152060126" duration="27785000" />
+      <workItem from="1587152060126" duration="39373000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76255000" />
+    <option name="totallyTimeSpent" value="87843000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13965885" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.13965885" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="aws.explorer" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49413645" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4936034" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49946696" weight="0.36836404" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
@@ -371,10 +373,10 @@
       <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.50586355" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.51226014" side_tool="true" weight="0.283857" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49200428" weight="0.2708559" />
-      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49520257" weight="0.2524377" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.48773986" weight="0.283857" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49093816" weight="0.41928494" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -382,23 +384,23 @@
       <window_info anchor="right" id="Database" order="4" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13539445" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13965885" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="aws.explorer" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4936034" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49946696" weight="0.36836404" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="5" />
+      <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32936078" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.51226014" side_tool="true" visible="true" weight="0.283857" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32936078" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.48773986" visible="true" weight="0.283857" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49093816" weight="0.41928494" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -470,22 +472,12 @@
     <entry file="file://$PROJECT_DIR$/publisher/__init__.py" />
     <entry file="file://$PROJECT_DIR$/database_helper/json_file_helper.py" />
     <entry file="file://$PROJECT_DIR$/application_broker/main.py" />
-    <entry file="file://$PROJECT_DIR$/databaseHelper/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python37/Lib/socketserver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2332">
           <caret line="465" selection-start-line="465" selection-end-line="465" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/databaseHelper/databaseHelper.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -514,16 +506,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/paho_example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#69#100#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/control_packets/info.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -531,36 +513,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/control_packets/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control_packets/flags.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="42" selection-start-line="42" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/databaseHelper/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/databaseHelper/databaseHelper.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/control_packets/processing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-357">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="-126">
+          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_simpleServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+        <state relative-caret-position="563">
+          <caret line="34" column="86" selection-start-line="34" selection-start-column="86" selection-end-line="34" selection-end-column="86" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/control_packets/methods.py">
+    <entry file="file://$PROJECT_DIR$/paho_example.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        <state relative-caret-position="483">
+          <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+          <folding>
+            <element signature="e#69#100#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/control_packets/__init__.py">
+    <entry file="file://$PROJECT_DIR$/control_packets/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="655">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
     </entry>

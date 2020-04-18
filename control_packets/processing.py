@@ -2,29 +2,30 @@ import control_packets as cp
 
 
 class processing:
-    # packet data - all headers
-    packet_bytes = None
-    reduced_packet_bytes: [] = []
-
-    # fixed header
-    packet_type = None
-    packet_flags = None
-    # remaining length is the length of variable header bytes + payload bytes
-    packet_remaining_length = -1
-
-    # variable header
-    packet_protocol_level = None
-    packet_connect_flags = None
-    packet_keep_alive = None
-
-    # payload
-    packet_client_identifier = None
-    packet_will_topic = None
-    packet_will_message = None
-    packet_user_name = None
-    packet_password = None
 
     def __init__(self, received_bytes):
+        # packet data - all headers
+        self.packet_bytes = None
+        self.reduced_packet_bytes: [] = []
+
+        # fixed header
+        self.packet_type = None
+        self.packet_flags = None
+        # remaining length is the length of variable header bytes + payload bytes
+        self.packet_remaining_length = -1
+
+        # variable header
+        self.packet_protocol_level = None
+        self.packet_connect_flags: cp.connect_flags = cp.connect_flags(2)
+        self.packet_keep_alive = None
+
+        # payload
+        self.packet_client_identifier: str = None
+        self.packet_will_topic = None
+        self.packet_will_message = None
+        self.packet_user_name = None
+        self.packet_password = None
+
         self.packet_bytes = received_bytes
 
         for byte in received_bytes:
