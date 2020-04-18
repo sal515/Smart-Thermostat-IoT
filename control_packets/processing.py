@@ -86,8 +86,6 @@ class processing:
         self.pop_a_msb()
         # print(self.pop_a_msb())
 
-
-
     def __calculate_remaining_size(self):
         # "Remaining Length calculation"
         multiplier = 1
@@ -96,7 +94,7 @@ class processing:
         for index in range(0, 2):
             try:
                 encoded_byte = self.reduced_packet_bytes[0]
-                removed_byte = self.pop_a_msb()
+                self.pop_a_msb()
                 # print(self.pop_a_msb())
 
                 self.packet_remaining_length += (encoded_byte & 127) * multiplier
