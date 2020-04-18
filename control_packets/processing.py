@@ -2,13 +2,27 @@ import control_packets as cp
 
 
 class processing:
+    # packet data - all headers
     packet_bytes = None
     reduced_packet_bytes: [] = []
 
+    # fixed header
     packet_type = None
     packet_flags = None
     # remaining length is the length of variable header bytes + payload bytes
     packet_remaining_length = -1
+
+    # variable header
+    packet_protocol_level = None
+    packet_connect_flags = None
+    packet_keep_alive = None
+
+    # payload
+    packet_client_identifier = None
+    packet_will_topic = None
+    packet_will_message = None
+    packet_user_name = None
+    packet_password = None
 
     def __init__(self, received_bytes):
         self.packet_bytes = received_bytes
@@ -33,6 +47,7 @@ class processing:
         elif self.packet_type == 1:
             print("CONNECT")
             cp.connect.extract_variable_header(self)
+            cp.connect.extract_payload_data(self)
 
         elif self.packet_type == 2:
             print("CONNACK")
@@ -108,4 +123,5 @@ class processing:
 
             except ValueError as e:
                 print("Error calculating remaining length: {}".format(e))
+                exit(-1)
                 break

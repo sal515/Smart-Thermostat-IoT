@@ -29,8 +29,12 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         try:
 
             packet_info = cp.processing(self.data)
-            print("packet type: ", packet_info.packet_type)
-            print("packet remaining length: ", packet_info.packet_remaining_length)
+            print("packet_type: ", packet_info.packet_type)
+            print("packet_remaining_length: ", packet_info.packet_remaining_length)
+            print("packet_protocol_level: ", packet_info.packet_protocol_level)
+            print("packet_connect_flags: ", packet_info.packet_connect_flags)
+            print("packet_keep_alive: ", packet_info.packet_keep_alive)
+
             print("packet remaining bytes in list: ", packet_info.reduced_packet_bytes)
 
             # cp.processing.process_packet(packet_info)
@@ -39,8 +43,10 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         except Exception as e:
             if e == "Invalid Protocol":
                 print("Error: {}".format(e))
+                exit(-1)
             else:
                 print(e)
+                exit(-2)
 
     def print_socket_details(self):
         print(self.request)
