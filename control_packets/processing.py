@@ -20,6 +20,7 @@ class processing:
 
         self.__identify_packet_type()
         self.__calculate_remaining_size()
+        self.process_packet()
 
     def process_packet(self):
 
@@ -80,10 +81,12 @@ class processing:
 
     def __identify_packet_type(self):
 
-        self.packet_type = self.packet_bytes[0] & 240
+        self.packet_type = (self.packet_bytes[0] & 240) >> 4
         self.packet_flags = self.packet_bytes[0] & 15
         self.pop_a_msb()
         # print(self.pop_a_msb())
+
+
 
     def __calculate_remaining_size(self):
         # "Remaining Length calculation"
