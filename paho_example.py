@@ -45,9 +45,11 @@ def on_socket_close(client, userdata, sock):
 
 myIP = socket.gethostbyname(socket.gethostname())
 print(myIP)
-topic = "yes/no"
+topic = "yes"
 
 client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
+
+# client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, protocol=mqtt.MQTTv31, transport="tcp")
 
 # client = mqtt.Client(client_id="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",    clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
 
@@ -63,8 +65,11 @@ client.connect(host=myIP, port=1881, keepalive=10, bind_address="")
 
 client.loop_start()  # start the loop
 
+time.sleep(2)  # wait
+
+
 # # print("Subscribing to topic", topic)
-client.subscribe(topic)
+client.subscribe([topic, topic, topic])
 # # print("Publishing message to topic", topic)
 # client.publish(topic, "off")
 time.sleep(30)  # wait

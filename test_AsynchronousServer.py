@@ -51,6 +51,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                     print("packet_protocol_level: ", packet_info.protocol_level)
                     print("packet_connect_flags: ", packet_info.connect_flags.asDict())
                     print("packet_keep_alive: ", packet_info.keep_alive)
+                    print("packet_identifier: ", packet_info.packet_identifier)
 
                     print("packet_client_identifier: ", packet_info.client_identifier)
                     print("packet_will_topic: ", packet_info.will_topic)
@@ -113,7 +114,7 @@ if __name__ == "__main__":
         server_thread.start()
         print("Server loop running in thread:", server_thread.name)
 
-        client(HOST, PORT, b'\x82\x0b\x00\x01\x00\x06yes/no\x00')
+        # client(HOST, PORT, b'\x82\x0b\x00\x01\x00\x06yes/no\x00')
         # client(ip, port, "Hello World 2")
         # client(ip, port, "Hello World 3")
 

@@ -1,5 +1,6 @@
 import control_packets as cp
 
+
 class processing:
 
     def __init__(self, received_bytes):
@@ -18,6 +19,7 @@ class processing:
         self.protocol_level = None
         self.connect_flags: cp.connect_flags = cp.connect_flags(2)
         self.keep_alive = None
+        self.packet_identifier = None
 
         # payload
         self.client_identifier: str = None
@@ -26,12 +28,15 @@ class processing:
         self.user_name = None
         self.password = None
 
+
+        # logic started
+
         self.bytes = received_bytes
 
         for byte in received_bytes:
             self.reduced_bytes.append(byte)
 
-        # print(self.reduced_bytes)
+        print(self.reduced_bytes)
 
         self.__identify_packet_type()
         self.__calculate_remaining_size()
@@ -73,7 +78,7 @@ class processing:
 
         elif self.type == 8:
             print("SUBSCRIBE")
-            # cp.connect.extract_variable_header(self)
+            cp.subscribe.extract_variable_header(self)
             # cp.connect.extract_payload_data(self)
             # self.response_message = cp.connack.build(self)
 

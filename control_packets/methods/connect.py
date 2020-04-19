@@ -42,9 +42,10 @@ class connect():
     @staticmethod
     def extract_variable_header(packet_info: cp.processing):
 
-        for index in range(0, 10):
+        iterations = 10
+        for index in range(0, iterations):
 
-            if packet_info.reduced_bytes.__len__() < 10:
+            if packet_info.reduced_bytes.__len__() < iterations:
                 raise Exception("Error in packet size, can not get variable packet header ")
 
             byte = packet_info.reduced_bytes[0]

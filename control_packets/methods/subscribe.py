@@ -39,51 +39,31 @@ class subscribe():
 
         return "".join(chr(i) for i in ascii_list)
 
-    # @staticmethod
-    # def extract_variable_header(packet_info: cp.processing):
-    #
-    #     for index in range(0, 10):
-    #
-    #         if packet_info.reduced_bytes.__len__() < 10:
-    #             raise Exception("Error in packet size, can not get variable packet header ")
-    #
-    #         byte = packet_info.reduced_bytes[0]
-    #         packet_info.pop_a_msb()
-    #
-    #         # print("byte:", byte)
-    #
-    #         if index == 0:
-    #             if byte != 0:
-    #                 raise Exception("Invalid Protocol (a)")
-    #
-    #         elif index == 1:
-    #             if byte != 4:
-    #                 raise Exception("Invalid Protocol2 (b)")
-    #
-    #         elif index == 2:
-    #             if byte != 77:
-    #                 raise Exception("Invalid Protocol (c)")
-    #
-    #         elif index == 3:
-    #             if byte != 81:
-    #                 raise Exception("Invalid Protocol (d)")
-    #
-    #         elif index == 4:
-    #             if byte != 84:
-    #                 raise Exception("Invalid Protocol (e)")
-    #
-    #         elif index == 5:
-    #             if byte != 84:
-    #                 raise Exception("Invalid Protocol (f)")
-    #
-    #         elif index == 6:
-    #             packet_info.protocol_level = byte
-    #
-    #         elif index == 7:
-    #             packet_info.connect_flags = cp.connect_flags(byte)
-    #
-    #         elif index == 8:
-    #             packet_info.keep_alive = (byte & 255) << 8
-    #
-    #         elif index == 9:
-    #             packet_info.keep_alive = packet_info.keep_alive | (byte & 255)
+    @staticmethod
+    def extract_variable_header(packet_info: cp.processing):
+
+        iterations = 2
+        for index in range(0, iterations):
+
+            if packet_info.reduced_bytes.__len__() < iterations:
+                raise Exception("Error in packet size, can not get variable packet header ")
+
+            byte = packet_info.reduced_bytes[0]
+            packet_info.pop_a_msb()
+
+            # print("byte:", byte)
+
+            if index == 0:
+                if byte != 0:
+                    raise Exception("Invalid packet identifier 1")
+                packet_info.packet_identifier = ((byte & 255) << 8)
+
+            # FIXME : Paho request of subscribe doesnt' match documentation of MQTTv311 section 3.8.2.1, figure 3.21
+            # Documentation says the packet identifier lsb should be 10
+            # But the paho is sending the packet identifier lsb equal to 1
+
+            elif index == 1:
+                # if byte != 10:
+                #     print(byte)
+                #     raise Exception("Invalid packet identifier 2")
+                packet_info.packet_identifier = packet_info.packet_identifier | (byte & 255)
