@@ -7,7 +7,7 @@ import socketserver
 
 
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
-# class ThreadedTCPRequestHandler(socketserver.StreamRequestHandler):
+    # class ThreadedTCPRequestHandler(socketserver.StreamRequestHandler):
 
     def print_socket_details(self):
         print(self.request)
@@ -35,18 +35,16 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
             data = (self.request.recv(1024))
             # data = (self.rfile.readline())
-            print(data)
+            print("received data", data)
 
             if not data:
                 break
-
-
 
             # processing received packets
             try:
                 packet_info = cp.processing(data)
 
-                debug = 0
+                debug = 1
                 if debug:
                     print("packet_type: ", packet_info.type)
                     print("packet_remaining_length: ", packet_info.remaining_length)
@@ -88,9 +86,13 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 def client(ip, port, message):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.connect((ip, port))
-        sock.sendall(bytes(message, 'ascii'))
+
+        bytesArr = []
+        for b in message:
+            bytesArr.append(b)
+        sock.sendall(bytes(bytesArr))
         response = str(sock.recv(1024), 'ascii')
-        print("Received: {}".format(response))
+        # print("Received: {}".format(response))
 
 
 if __name__ == "__main__":
@@ -111,13 +113,13 @@ if __name__ == "__main__":
         server_thread.start()
         print("Server loop running in thread:", server_thread.name)
 
+        client(HOST, PORT, b'\x82\x0b\x00\x01\x00\x06yes/no\x00')
+        # client(ip, port, "Hello World 2")
+        # client(ip, port, "Hello World 3")
+
         server_thread.join()
 
         # while True:
         #     pass
-
-        # client(ip, port, "Hello World 1")
-        # client(ip, port, "Hello World 2")
-        # client(ip, port, "Hello World 3")
 
         # server.shutdown()

@@ -1,6 +1,5 @@
 import control_packets as cp
 
-
 class processing:
 
     def __init__(self, received_bytes):
@@ -74,6 +73,9 @@ class processing:
 
         elif self.type == 8:
             print("SUBSCRIBE")
+            # cp.connect.extract_variable_header(self)
+            # cp.connect.extract_payload_data(self)
+            # self.response_message = cp.connack.build(self)
 
         elif self.type == 9:
             print("SUBACK")
