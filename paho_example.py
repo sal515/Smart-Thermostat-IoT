@@ -64,8 +64,8 @@ client.connect(host=myIP, port=1881, keepalive=10, bind_address="")
 client.loop_start()  # start the loop
 
 # # print("Subscribing to topic", topic)
-# client.subscribe(topic)
+client.subscribe(topic)
 # # print("Publishing message to topic", topic)
 # client.publish(topic, "off")
-time.sleep(10)  # wait
+time.sleep(30)  # wait
 client.loop_stop()  # stop the loop

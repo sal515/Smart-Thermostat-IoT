@@ -6,7 +6,7 @@ class connect():
 
     @staticmethod
     def extract_payload_data(packet_info: cp.processing):
-        print(packet_info.reduced_bytes)
+        # print(packet_info.reduced_bytes)
 
         if not packet_info.reduced_bytes.__len__() < 2:
             # Extract client id
@@ -97,6 +97,7 @@ class connack():
         packet = []
         connack.create_fixed_header(packet)
         connack.create_variable_header(packet, packet_info)
+        return packet
 
     @staticmethod
     def create_fixed_header(packet: []):

@@ -4,6 +4,7 @@ import control_packets as cp
 class processing:
 
     def __init__(self, received_bytes):
+        self.response_message = None
         # packet data - all headers
         self.bytes = None
         self.reduced_bytes: [] = []
@@ -31,7 +32,7 @@ class processing:
         for byte in received_bytes:
             self.reduced_bytes.append(byte)
 
-        print(self.reduced_bytes)
+        # print(self.reduced_bytes)
 
         self.__identify_packet_type()
         self.__calculate_remaining_size()
@@ -49,6 +50,9 @@ class processing:
             print("CONNECT")
             cp.connect.extract_variable_header(self)
             cp.connect.extract_payload_data(self)
+            self.response_message = cp.connack.build(self)
+            # print("connack msg built: ", cp.connack.build(self))
+            # print("connack msg built in bytes: ", bytes(cp.connack.build(self)))
 
         elif self.type == 2:
             print("CONNACK")
