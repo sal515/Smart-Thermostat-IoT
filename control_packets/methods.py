@@ -6,30 +6,30 @@ class connect():
 
     @staticmethod
     def extract_payload_data(packet_info: cp.processing):
-        # print(packet_info.reduced_packet_bytes)
+        print(packet_info.reduced_bytes)
 
-        if not packet_info.reduced_packet_bytes.__len__() < 2:
+        if not packet_info.reduced_bytes.__len__() < 2:
             # Extract client id
-            packet_info.packet_client_identifier = connect.extract_message(packet_info)
+            packet_info.client_identifier = connect.extract_message(packet_info)
 
-        if (not packet_info.reduced_packet_bytes.__len__() < 2) and packet_info.packet_connect_flags.will_flag:
+        if (not packet_info.reduced_bytes.__len__() < 2) and packet_info.connect_flags.will_flag:
             # Extract will topic
-            packet_info.packet_will_topic = connect.extract_message(packet_info)
+            packet_info.will_topic = connect.extract_message(packet_info)
 
-        if (not packet_info.reduced_packet_bytes.__len__() < 2) and packet_info.packet_connect_flags.will_flag:
+        if (not packet_info.reduced_bytes.__len__() < 2) and packet_info.connect_flags.will_flag:
             # Extract will message
-            packet_info.packet_will_message = connect.extract_message(packet_info)
+            packet_info.will_message = connect.extract_message(packet_info)
 
-        if (not packet_info.reduced_packet_bytes.__len__() < 2) and packet_info.packet_connect_flags.user_name:
+        if (not packet_info.reduced_bytes.__len__() < 2) and packet_info.connect_flags.user_name:
             # Extract user name
-            packet_info.packet_user_name = connect.extract_message(packet_info)
+            packet_info.user_name = connect.extract_message(packet_info)
 
-        if (not packet_info.reduced_packet_bytes.__len__() < 2) and packet_info.packet_connect_flags.password:
+        if (not packet_info.reduced_bytes.__len__() < 2) and packet_info.connect_flags.password:
             # Extract password
-            packet_info.packet_password = connect.extract_message(packet_info)
+            packet_info.password = connect.extract_message(packet_info)
 
     @staticmethod
-    def extract_message(packet_info):
+    def extract_message(packet_info: cp.processing):
         msb = packet_info.pop_a_msb()
         lsb = packet_info.pop_a_msb()
         string_length = (msb << 1) | lsb
@@ -44,10 +44,10 @@ class connect():
 
         for index in range(0, 10):
 
-            if packet_info.reduced_packet_bytes.__len__() < 10:
+            if packet_info.reduced_bytes.__len__() < 10:
                 raise Exception("Error in packet size, can not get variable packet header ")
 
-            byte = packet_info.reduced_packet_bytes[0]
+            byte = packet_info.reduced_bytes[0]
             packet_info.pop_a_msb()
 
             # print("byte:", byte)
@@ -77,82 +77,94 @@ class connect():
                     raise Exception("Invalid Protocol (f)")
 
             elif index == 6:
-                packet_info.packet_protocol_level = byte
+                packet_info.protocol_level = byte
 
             elif index == 7:
-                packet_info.packet_connect_flags = cp.connect_flags(byte)
+                packet_info.connect_flags = cp.connect_flags(byte)
 
             elif index == 8:
-                packet_info.packet_keep_alive = (byte & 255) << 8
+                packet_info.keep_alive = (byte & 255) << 8
 
             elif index == 9:
-                packet_info.packet_keep_alive = packet_info.packet_keep_alive | (byte & 255)
+                packet_info.keep_alive = packet_info.keep_alive | (byte & 255)
 
 
 # 3.2 CONNACK – Acknowledge connection request
 class connack():
 
     @staticmethod
-    def build_response(self):
-        print("responding")
+    def build(packet_info: cp.processing):
+        packet = []
+        connack.create_fixed_header(packet)
+        connack.create_variable_header(packet, packet_info)
+
+    @staticmethod
+    def create_fixed_header(packet: []):
+        packet.append(32)
+        packet.append(2)
+
+    @staticmethod
+    def create_variable_header(packet: [], packet_info: cp.processing):
+        _clean_session = packet_info.connect_flags.clean_session
+        _identifier = packet_info.client_identifier
+
+        _session_state = 0
+
+        # FIXME : cp.is_session_stored -> Not Implemented in todo
+        if not _clean_session and not cp.is_session_stored(_identifier):
+            _session_state = 0
+
+        if not _clean_session and cp.is_session_stored(_identifier):
+            _session_state = 1
+
+        # FIXME : determine_return_code not defined in todo
+        packet.append(cp.determine_return_code())
+        packet.append(_session_state)
+
+    # 3.3 PUBLISH – Publish message
+    class publish():
         pass
 
+    # 3.4 PUBACK – Publish acknowledgement
+    class puback():
+        pass
 
-# 3.3 PUBLISH – Publish message
-class publish():
-    pass
+    # 3.5 PUBREC – Publish received (QoS 2 publish received, part 1)
+    class pubrec():
+        pass
 
+    # 3.6 PUBREL – Publish release (QoS 2 publish received, part 2)
+    class pubrel():
+        pass
 
-# 3.4 PUBACK – Publish acknowledgement
-class puback():
-    pass
+    # 3.7 PUBCOMP – Publish complete (QoS 2 publish received, part 3)
+    class pubcomp():
+        pass
 
+    # 3.8 SUBSCRIBE - Subscribe to topics
+    class subscribe():
+        pass
 
-# 3.5 PUBREC – Publish received (QoS 2 publish received, part 1)
-class pubrec():
-    pass
+    # 3.9 SUBACK – Subscribe acknowledgement
+    class suback():
+        pass
 
+    # 3.10 UNSUBSCRIBE – Unsubscribe from topics
+    class unsubscribe():
+        pass
 
-# 3.6 PUBREL – Publish release (QoS 2 publish received, part 2)
-class pubrel():
-    pass
+    # 3.11 UNSUBACK – Unsubscribe acknowledgement
+    class unsuback():
+        pass
 
+    # 3.12 PINGREQ – PING request
+    class pingreq():
+        pass
 
-# 3.7 PUBCOMP – Publish complete (QoS 2 publish received, part 3)
-class pubcomp():
-    pass
+    # 3.13 PINGRESP – PING response
+    class pingresp():
+        pass
 
-
-# 3.8 SUBSCRIBE - Subscribe to topics
-class subscribe():
-    pass
-
-
-# 3.9 SUBACK – Subscribe acknowledgement
-class suback():
-    pass
-
-
-# 3.10 UNSUBSCRIBE – Unsubscribe from topics
-class unsubscribe():
-    pass
-
-
-# 3.11 UNSUBACK – Unsubscribe acknowledgement
-class unsuback():
-    pass
-
-
-# 3.12 PINGREQ – PING request
-class pingreq():
-    pass
-
-
-# 3.13 PINGRESP – PING response
-class pingresp():
-    pass
-
-
-# 3.14 DISCONNECT – Disconnect notification
-class disconnect():
-    pass
+    # 3.14 DISCONNECT – Disconnect notification
+    class disconnect():
+        pass

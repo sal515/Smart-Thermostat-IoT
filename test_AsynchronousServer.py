@@ -1,3 +1,6 @@
+import time
+
+import control_packets as cp
 import socket
 import threading
 import socketserver
@@ -5,11 +8,60 @@ import socketserver
 
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
+    def print_socket_details(self):
+        print(self.request)
+
+        # sock: socket.socket = None
+        sock: socket.socket = self.request
+        sock_family = sock.family
+        sock_type = sock.type
+        sock_proto = sock.proto
+        sock_laddr = sock.getsockname()
+        sock_raddr = sock.getpeername()
+        sock_fd = sock.fileno()
+        print(sock_family)
+        print(sock_type)
+        print(sock_proto)
+        print(sock_laddr)
+        print(sock_raddr)
+        print(sock_fd)
+
     def handle(self):
+        # receiving packet
         # data = str(self.request.recv(1024), 'ascii')
         # data = (self.request.recv(1024), 'ascii')
         data = (self.request.recv(1024))
         print(data)
+
+        # processing received packets
+        try:
+            packet_info = cp.processing(data)
+
+            print("packet_type: ", packet_info.type)
+            print("packet_remaining_length: ", packet_info.remaining_length)
+            print("packet_protocol_level: ", packet_info.protocol_level)
+            print("packet_connect_flags: ", packet_info.connect_flags.asDict())
+            print("packet_keep_alive: ", packet_info.keep_alive)
+
+            print("packet_client_identifier: ", packet_info.client_identifier)
+            print("packet_will_topic: ", packet_info.will_topic)
+            print("packet_will_message: ", packet_info.will_message)
+            print("packet_user_name: ", packet_info.user_name)
+            print("packet_password: ", packet_info.password)
+
+            print("packet remaining bytes in list: ", packet_info.reduced_bytes)
+
+            time.sleep(5)
+
+        except Exception as e:
+            if e == "Invalid Protocol":
+                print("Error: {}".format(e))
+                exit(-1)
+            else:
+                print(e)
+                exit(-2)
+
+        #  sending response
         cur_thread = threading.current_thread()
         # response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
         message = " \x02\x00\x00"
