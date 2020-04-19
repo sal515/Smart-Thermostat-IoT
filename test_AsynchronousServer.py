@@ -7,6 +7,7 @@ import socketserver
 
 
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
+# class ThreadedTCPRequestHandler(socketserver.StreamRequestHandler):
 
     def print_socket_details(self):
         print(self.request)
@@ -27,47 +28,57 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
         print(sock_fd)
 
     def handle(self):
-        # receiving packet
-        # data = str(self.request.recv(1024), 'ascii')
-        # data = (self.request.recv(1024), 'ascii')
-        data = (self.request.recv(1024))
-        print(data)
+        while 1:
+            # receiving packet
+            # data = str(self.request.recv(1024), 'ascii')
+            # data = (self.request.recv(1024), 'ascii')
 
-        # processing received packets
-        try:
-            packet_info = cp.processing(data)
+            data = (self.request.recv(1024))
+            # data = (self.rfile.readline())
+            print(data)
 
-            print("packet_type: ", packet_info.type)
-            print("packet_remaining_length: ", packet_info.remaining_length)
-            print("packet_protocol_level: ", packet_info.protocol_level)
-            print("packet_connect_flags: ", packet_info.connect_flags.asDict())
-            print("packet_keep_alive: ", packet_info.keep_alive)
+            if not data:
+                break
 
-            print("packet_client_identifier: ", packet_info.client_identifier)
-            print("packet_will_topic: ", packet_info.will_topic)
-            print("packet_will_message: ", packet_info.will_message)
-            print("packet_user_name: ", packet_info.user_name)
-            print("packet_password: ", packet_info.password)
 
-            print("packet remaining bytes in list: ", packet_info.reduced_bytes)
 
-            time.sleep(5)
+            # processing received packets
+            try:
+                packet_info = cp.processing(data)
 
-        except Exception as e:
-            if e == "Invalid Protocol":
-                print("Error: {}".format(e))
-                exit(-1)
-            else:
-                print(e)
-                exit(-2)
+                debug = 0
+                if debug:
+                    print("packet_type: ", packet_info.type)
+                    print("packet_remaining_length: ", packet_info.remaining_length)
+                    print("packet_protocol_level: ", packet_info.protocol_level)
+                    print("packet_connect_flags: ", packet_info.connect_flags.asDict())
+                    print("packet_keep_alive: ", packet_info.keep_alive)
 
-        #  sending response
-        cur_thread = threading.current_thread()
-        # response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
-        message = " \x02\x00\x00"
-        response = bytes(message, 'ascii')
-        print(response)
-        self.request.sendall(response)
+                    print("packet_client_identifier: ", packet_info.client_identifier)
+                    print("packet_will_topic: ", packet_info.will_topic)
+                    print("packet_will_message: ", packet_info.will_message)
+                    print("packet_user_name: ", packet_info.user_name)
+                    print("packet_password: ", packet_info.password)
+
+                    print("packet remaining bytes in list: ", packet_info.reduced_bytes)
+
+                #  sending response
+                cur_thread = threading.current_thread()
+                # response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
+                response = bytes(packet_info.response_message)
+                print("response from server: ", response)
+                self.request.sendall(response)
+
+                # time.sleep(5)
+
+
+            except Exception as e:
+                if e == "Invalid Protocol":
+                    print("Error: {}".format(e))
+                    exit(-1)
+                else:
+                    print(e)
+                    exit(-2)
 
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
