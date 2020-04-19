@@ -6,9 +6,15 @@ import socketserver
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
-        data = str(self.request.recv(1024), 'ascii')
+        # data = str(self.request.recv(1024), 'ascii')
+        # data = (self.request.recv(1024), 'ascii')
+        data = (self.request.recv(1024))
+        print(data)
         cur_thread = threading.current_thread()
-        response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
+        # response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
+        message = " \x02\x00\x00"
+        response = bytes(message, 'ascii')
+        print(response)
         self.request.sendall(response)
 
 
@@ -26,7 +32,9 @@ def client(ip, port, message):
 
 if __name__ == "__main__":
     # Port 0 means to select an arbitrary unused port
-    HOST, PORT = "localhost", 0
+    myIP = socket.gethostbyname(socket.gethostname())
+
+    HOST, PORT = myIP, 1881
 
     server = ThreadedTCPServer((HOST, PORT), ThreadedTCPRequestHandler)
     with server:
@@ -40,9 +48,13 @@ if __name__ == "__main__":
         server_thread.start()
         print("Server loop running in thread:", server_thread.name)
 
-        client(ip, port, "Hello World 1")
-        client(ip, port, "Hello World 2")
-        client(ip, port, "Hello World 3")
+        server_thread.join()
+
+        # while True:
+        #     pass
+
+        # client(ip, port, "Hello World 1")
+        # client(ip, port, "Hello World 2")
+        # client(ip, port, "Hello World 3")
 
         # server.shutdown()
-        # server.serve_forever()

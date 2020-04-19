@@ -91,7 +91,11 @@ class connect():
 
 # 3.2 CONNACK – Acknowledge connection request
 class connack():
-    pass
+
+    @staticmethod
+    def build_response(self):
+        print("responding")
+        pass
 
 
 # 3.3 PUBLISH – Publish message
