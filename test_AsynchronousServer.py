@@ -45,6 +45,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                 packet_info = cp.processing(data)
 
                 debug = 1
+                # debug = 0
                 if debug:
                     print("packet_type: ", packet_info.type)
                     print("packet_remaining_length: ", packet_info.remaining_length)
@@ -58,6 +59,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                     print("packet_will_message: ", packet_info.will_message)
                     print("packet_user_name: ", packet_info.user_name)
                     print("packet_password: ", packet_info.password)
+                    print("topics: ", packet_info.topics)
 
                     print("packet remaining bytes in list: ", packet_info.reduced_bytes)
 
@@ -114,8 +116,10 @@ if __name__ == "__main__":
         server_thread.start()
         print("Server loop running in thread:", server_thread.name)
 
-        # client(HOST, PORT, b'\x82\x0b\x00\x01\x00\x06yes/no\x00')
-        # client(ip, port, "Hello World 2")
+        # Test subscribe
+        # client(HOST, PORT, b'\x82\x17\x00\x01\x00\x03yes\x00\x00\x04yess\x00\x00\x05yesss\x00')
+        # Test unsubscribe
+        # client(ip, port, b'\x90\x05\x00\x01\x00\x00\x00')
         # client(ip, port, "Hello World 3")
 
         server_thread.join()
