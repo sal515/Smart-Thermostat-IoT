@@ -29,19 +29,19 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         try:
             packet_info = cp.processing(self.data)
 
-            print("packet_type: ", packet_info.packet_type)
-            print("packet_remaining_length: ", packet_info.packet_remaining_length)
-            print("packet_protocol_level: ", packet_info.packet_protocol_level)
-            print("packet_connect_flags: ", packet_info.packet_connect_flags.asDict())
-            print("packet_keep_alive: ", packet_info.packet_keep_alive)
+            print("packet_type: ", packet_info.type)
+            print("packet_remaining_length: ", packet_info.remaining_length)
+            print("packet_protocol_level: ", packet_info.protocol_level)
+            print("packet_connect_flags: ", packet_info.connect_flags.asDict())
+            print("packet_keep_alive: ", packet_info.keep_alive)
 
-            print("packet_client_identifier: ", packet_info.packet_client_identifier)
-            print("packet_will_topic: ", packet_info.packet_will_topic)
-            print("packet_will_message: ", packet_info.packet_will_message)
-            print("packet_user_name: ", packet_info.packet_user_name)
-            print("packet_password: ", packet_info.packet_password)
+            print("packet_client_identifier: ", packet_info.client_identifier)
+            print("packet_will_topic: ", packet_info.will_topic)
+            print("packet_will_message: ", packet_info.will_message)
+            print("packet_user_name: ", packet_info.user_name)
+            print("packet_password: ", packet_info.password)
 
-            print("packet remaining bytes in list: ", packet_info.reduced_packet_bytes)
+            print("packet remaining bytes in list: ", packet_info.reduced_bytes)
 
         except Exception as e:
             if e == "Invalid Protocol":

@@ -5,35 +5,82 @@ import socket
 
 
 def on_message(client, userdata, message):
-    print("message received --> ", str(message.payload.decode("utf-8")))
-    print("message topic -->", message.topic)
-    print("message qos -->", message.qos)
-    print("message retain flag -->", message.retain)
+    print("Received message '" + str(message.payload) + "' on topic '"
+          + message.topic + "' with QoS " + str(message.qos))
+
+
+def on_connect(client, userdata, flags, rc):
+    print("Connection returned result: {}".format(mqtt.connack_string(rc)))
+
+
+def on_disconnect(client, userdata, rc):
+    if rc != 0:
+        print("Unexpected disconnection.")
+
+
+def on_subscribe(client, userdata, mid, granted_qos):
+    print("Subscribed")
+    pass
+
+
+def on_unsubscribe(client, userdata, mid):
+    # print("Unsubscribed")
+    pass
+
+
+def on_publish(client, userdata, mid):
+    # print("Published : {}".format(mqtt. connack_string(rc)))
+    print("Published : {}".format(mid))
+
+    # print("Connection returned result: {}".format(mqtt.connack_string(rc)))
+
+    pass
+
+
+def on_socket_open(client, userdata, sock):
+    # print("Connection returned result: {}".format(mqtt.connack_string(rc)))
+    pass
+
+
+def on_socket_close(client, userdata, sock):
+    # print("Connection returned result: {}".format(mqtt.connack_string(rc)))
+    pass
 
 
 myIP = socket.gethostbyname(socket.gethostname())
 print(myIP)
-topic = "yes/no"
-
-
+topic = "yes"
+topic1 = ("yes", 0)
+topic2 = ("yess", 0)
+topic3 = ("yesss", 0)
 
 client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
 
-
-client.will_set("aTopic", "client will msg", 2, True)
-client.username_pw_set("me", "yes")
+# client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, protocol=mqtt.MQTTv31, transport="tcp")
 
 # client = mqtt.Client(client_id="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",    clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
 
-# client.connect(host=myIP, port=1883, keepalive=60, bind_address="")
-client.connect(host=myIP, port=1881, keepalive=9999, bind_address="")
-
 client.on_message = on_message
+client.on_connect = on_connect
+client.on_disconnect = on_disconnect
+client.on_subscribe = on_subscribe
+client.on_unsubscribe = on_unsubscribe
+client.on_publish = on_publish
+
+# client.will_set("aTopic", "client will msg", 2, True)
+# client.username_pw_set("me", "yes")
+
+
+# client.connect(host=myIP, port=1883, keepalive=10, bind_address="")
+client.connect(host=myIP, port=1881, keepalive=10, bind_address="")
 
 client.loop_start()  # start the loop
+
+time.sleep(2)  # wait
+
 # # print("Subscribing to topic", topic)
-# client.subscribe(topic)
+# client.subscribe([topic1, topic2, topic3])
 # # print("Publishing message to topic", topic)
-# client.publish(topic, "off")
-# time.sleep(4)  # wait
+client.publish(topic, "off")
+time.sleep(30)  # wait
 client.loop_stop()  # stop the loop
