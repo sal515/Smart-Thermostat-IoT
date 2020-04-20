@@ -70,6 +70,7 @@ class processing:
 
         elif self.type == 2:
             print("CONNACK")
+            # implemented
             pass
 
         elif self.type == 3:
