@@ -7,6 +7,8 @@ class processing:
         # packet data - all headers
         self.response_message = None
         self.send = False
+        self.disconnect = False
+
         self.bytes = None
         self.reduced_bytes: [] = []
 
@@ -68,6 +70,7 @@ class processing:
 
         elif self.type == 2:
             print("CONNACK")
+            # implemented
             pass
 
         elif self.type == 3:
@@ -112,14 +115,19 @@ class processing:
 
         elif self.type == 12:
             print("PINGREQ")
+            self.response_message = cp.pingresp.build(self)
+            self.send = True
             pass
 
 
         elif self.type == 13:
             print("PINGRESP")
+            # implemented
+            pass
 
         elif self.type == 14:
             print("DISCONNECT")
+            self.disconnect = True
             pass
 
 
