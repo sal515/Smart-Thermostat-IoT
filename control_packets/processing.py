@@ -6,6 +6,7 @@ class processing:
     def __init__(self, received_bytes):
         # packet data - all headers
         self.response_message = None
+        self.send = False
         self.bytes = None
         self.reduced_bytes: [] = []
 
@@ -62,6 +63,7 @@ class processing:
             cp.connect.extract_variable_header(self)
             cp.connect.extract_payload_data(self)
             self.response_message = cp.connack.build(self)
+            self.send = True
             # print("connack msg built: ", cp.connack.build(self))
 
         elif self.type == 2:
@@ -72,7 +74,7 @@ class processing:
             print("PUBLISH")
             cp.publish.extract_variable_header(self)
             cp.publish.extract_payload_data(self)
-
+            self.send = False
 
         elif self.type == 4:
             print("PUBACK")
@@ -91,6 +93,7 @@ class processing:
             cp.subscribe.extract_variable_header(self)
             cp.subscribe.extract_payload_data(self)
             self.response_message = cp.suback.build(self)
+            self.send = True
             # print("suback msg: ", cp.suback.build(self))
 
         elif self.type == 9:

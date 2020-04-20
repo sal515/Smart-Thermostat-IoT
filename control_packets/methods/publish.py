@@ -6,7 +6,7 @@ class publish():
 
     @staticmethod
     def extract_payload_data(packet_info: cp.processing):
-        print(packet_info.reduced_bytes)
+        # print(packet_info.reduced_bytes)
 
         len = packet_info.reduced_bytes.__len__()
 

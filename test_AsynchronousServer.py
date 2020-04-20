@@ -35,7 +35,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
             data = (self.request.recv(1024))
             # data = (self.rfile.readline())
-            print("received data", data)
+            print("received by server: ", data)
 
             if not data:
                 break
@@ -47,6 +47,9 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                 debug = 1
                 # debug = 0
                 if debug:
+                    print(" ")
+                    print("==== Processed new packet of type : {} ====".format(packet_info.type))
+
                     print("packet_type: ", packet_info.type)
                     print("dupFlag: ", packet_info.dupFlag)
                     print("qosLevel: ", packet_info.qosLevel)
@@ -68,9 +71,11 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                     print("packet_user_name: ", packet_info.user_name)
                     print("packet_password: ", packet_info.password)
                     print("topics: ", packet_info.subscribed_topics)
-                    print("topics: ", packet_info.published_message)
+                    print("published_message: ", packet_info.published_message)
 
                     print("packet remaining bytes in list: ", packet_info.reduced_bytes)
+                    print(" ")
+                    print("==== End of details for packet type:  {} ====".format(packet_info.type))
 
                 #  sending response
                 cur_thread = threading.current_thread()
@@ -78,7 +83,8 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                 # response = bytes(packet_info.response_message)
                 response = bytes(packet_info.response_message)
                 print("response from server: ", response)
-                self.request.sendall(response)
+                if packet_info.send:
+                    self.request.sendall(response)
 
                 # time.sleep(5)
 
