@@ -7,37 +7,13 @@ class subscribe():
     @staticmethod
     def extract_payload_data(packet_info: cp.processing):
         # print(packet_info.reduced_bytes)
-
-        if not packet_info.reduced_bytes.__len__() < 2:
-            # Extract client id
-            packet_info.client_identifier = subscribe.extract_message(packet_info)
-
-        if (not packet_info.reduced_bytes.__len__() < 2) and packet_info.connect_flags.will_flag:
-            # Extract will topic
-            packet_info.will_topic = subscribe.extract_message(packet_info)
-
-        if (not packet_info.reduced_bytes.__len__() < 2) and packet_info.connect_flags.will_flag:
-            # Extract will message
-            packet_info.will_message = subscribe.extract_message(packet_info)
-
-        if (not packet_info.reduced_bytes.__len__() < 2) and packet_info.connect_flags.user_name:
-            # Extract user name
-            packet_info.user_name = subscribe.extract_message(packet_info)
-
-        if (not packet_info.reduced_bytes.__len__() < 2) and packet_info.connect_flags.password:
-            # Extract password
-            packet_info.password = subscribe.extract_message(packet_info)
-
-    @staticmethod
-    def extract_message(packet_info: cp.processing):
-        msb = packet_info.pop_a_msb()
-        lsb = packet_info.pop_a_msb()
-        string_length = (msb << 1) | lsb
-        ascii_list = []
-        for c in range(0, string_length):
-            ascii_list.append(packet_info.pop_a_msb())
-
-        return "".join(chr(i) for i in ascii_list)
+        while True:
+            topic_qos_pair = []
+            if packet_info.reduced_bytes.__len__() < 2:
+                return
+            topic_qos_pair.append(cp.extract_string(packet_info))
+            topic_qos_pair.append(packet_info.pop_a_msb())
+            packet_info.topics.append(topic_qos_pair)
 
     @staticmethod
     def extract_variable_header(packet_info: cp.processing):

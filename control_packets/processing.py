@@ -9,6 +9,8 @@ class processing:
         self.bytes = None
         self.reduced_bytes: [] = []
 
+        # Variables
+
         # fixed header
         self.type = None
         self.flags = None
@@ -27,9 +29,10 @@ class processing:
         self.will_message = None
         self.user_name = None
         self.password = None
+        self.topics = []
 
 
-        # logic started
+        # logic
 
         self.bytes = received_bytes
 
@@ -79,7 +82,7 @@ class processing:
         elif self.type == 8:
             print("SUBSCRIBE")
             cp.subscribe.extract_variable_header(self)
-            # cp.connect.extract_payload_data(self)
+            cp.subscribe.extract_payload_data(self)
             # self.response_message = cp.connack.build(self)
 
         elif self.type == 9:
