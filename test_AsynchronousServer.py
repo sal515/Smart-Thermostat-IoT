@@ -44,11 +44,15 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
             try:
                 packet_info = cp.processing(data)
 
-                # debug = 1
-                debug = 0
+                debug = 1
+                # debug = 0
                 if debug:
                     print("packet_type: ", packet_info.type)
+                    print("dupFlag: ", packet_info.dupFlag)
+                    print("qosLevel: ", packet_info.qosLevel)
+                    print("retain: ", packet_info.retain)
                     print("packet_remaining_length: ", packet_info.remaining_length)
+
                     print("packet_protocol_level: ", packet_info.protocol_level)
                     print("packet_connect_flags: ", packet_info.connect_flags.asDict())
                     print("packet_keep_alive: ", packet_info.keep_alive)
@@ -56,13 +60,15 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                     print("packet_identifier msb: ", packet_info.packet_identifier_msb)
                     print("packet_identifier lsb: ", packet_info.packet_identifier_lsb)
                     print("packet_identifier: ", packet_info.packet_identifier)
+                    print("published_topic: ", packet_info.published_topic)
 
                     print("packet_client_identifier: ", packet_info.client_identifier)
                     print("packet_will_topic: ", packet_info.will_topic)
                     print("packet_will_message: ", packet_info.will_message)
                     print("packet_user_name: ", packet_info.user_name)
                     print("packet_password: ", packet_info.password)
-                    print("topics: ", packet_info.topics)
+                    print("topics: ", packet_info.subscribed_topics)
+                    print("topics: ", packet_info.published_message)
 
                     print("packet remaining bytes in list: ", packet_info.reduced_bytes)
 
@@ -124,6 +130,9 @@ if __name__ == "__main__":
         # client(HOST, PORT, b'\x82\x17\x00\x01\x00\x03yes\x00\x00\x04yess\x00\x00\x05yesss\x00')
         # Test suback
         # client(ip, port, b'\x90\x05\x00\x01\x00\x00\x00')
+        # Test publish
+        # client(ip, port, b'0\x08\x00\x03yesoff')
+        # client(ip, port, "Hello World 3")
         # client(ip, port, "Hello World 3")
 
         server_thread.join()

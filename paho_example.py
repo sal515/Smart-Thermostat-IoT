@@ -28,8 +28,12 @@ def on_unsubscribe(client, userdata, mid):
     pass
 
 
-def on_publish(client, userdata, mid, granted_qos):
+def on_publish(client, userdata, mid):
+    # print("Published : {}".format(mqtt. connack_string(rc)))
+    print("Published : {}".format(mid))
+
     # print("Connection returned result: {}".format(mqtt.connack_string(rc)))
+
     pass
 
 
@@ -45,6 +49,7 @@ def on_socket_close(client, userdata, sock):
 
 myIP = socket.gethostbyname(socket.gethostname())
 print(myIP)
+topic = "yes"
 topic1 = ("yes", 0)
 topic2 = ("yess", 0)
 topic3 = ("yesss", 0)
@@ -60,6 +65,8 @@ client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.on_subscribe = on_subscribe
 client.on_unsubscribe = on_unsubscribe
+client.on_publish = on_publish
+
 # client.will_set("aTopic", "client will msg", 2, True)
 # client.username_pw_set("me", "yes")
 
@@ -72,8 +79,8 @@ client.loop_start()  # start the loop
 time.sleep(2)  # wait
 
 # # print("Subscribing to topic", topic)
-client.subscribe([topic1, topic2, topic3])
+# client.subscribe([topic1, topic2, topic3])
 # # print("Publishing message to topic", topic)
-# client.publish(topic, "off")
+client.publish(topic, "off")
 time.sleep(30)  # wait
 client.loop_stop()  # stop the loop
