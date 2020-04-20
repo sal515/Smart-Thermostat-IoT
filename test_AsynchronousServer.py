@@ -44,14 +44,17 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
             try:
                 packet_info = cp.processing(data)
 
-                debug = 1
-                # debug = 0
+                # debug = 1
+                debug = 0
                 if debug:
                     print("packet_type: ", packet_info.type)
                     print("packet_remaining_length: ", packet_info.remaining_length)
                     print("packet_protocol_level: ", packet_info.protocol_level)
                     print("packet_connect_flags: ", packet_info.connect_flags.asDict())
                     print("packet_keep_alive: ", packet_info.keep_alive)
+                    print("packet_identifier: ", packet_info.packet_identifier)
+                    print("packet_identifier msb: ", packet_info.packet_identifier_msb)
+                    print("packet_identifier lsb: ", packet_info.packet_identifier_lsb)
                     print("packet_identifier: ", packet_info.packet_identifier)
 
                     print("packet_client_identifier: ", packet_info.client_identifier)
@@ -66,6 +69,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                 #  sending response
                 cur_thread = threading.current_thread()
                 # response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
+                # response = bytes(packet_info.response_message)
                 response = bytes(packet_info.response_message)
                 print("response from server: ", response)
                 self.request.sendall(response)
@@ -118,7 +122,7 @@ if __name__ == "__main__":
 
         # Test subscribe
         # client(HOST, PORT, b'\x82\x17\x00\x01\x00\x03yes\x00\x00\x04yess\x00\x00\x05yesss\x00')
-        # Test unsubscribe
+        # Test suback
         # client(ip, port, b'\x90\x05\x00\x01\x00\x00\x00')
         # client(ip, port, "Hello World 3")
 

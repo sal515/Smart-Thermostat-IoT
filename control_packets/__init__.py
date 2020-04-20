@@ -6,4 +6,6 @@ from .methods.common_methods import *
 from .methods.connect import *
 from .methods.connack import *
 from .methods.subscribe import *
+from .methods.suback import *
+from .methods.unsuback import *
 

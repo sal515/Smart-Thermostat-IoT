@@ -33,6 +33,7 @@ class subscribe():
                 if byte != 0:
                     raise Exception("Invalid packet identifier 1")
                 packet_info.packet_identifier = ((byte & 255) << 8)
+                packet_info.packet_identifier_msb = byte
 
             # FIXME : Paho request of subscribe doesnt' match documentation of MQTTv311 section 3.8.2.1, figure 3.21
             # Documentation says the packet identifier lsb should be 10
@@ -43,3 +44,5 @@ class subscribe():
                 #     print(byte)
                 #     raise Exception("Invalid packet identifier 2")
                 packet_info.packet_identifier = packet_info.packet_identifier | (byte & 255)
+                # packet_info.packet_identifier_lsb = 10
+                packet_info.packet_identifier_lsb = byte

@@ -22,6 +22,8 @@ class processing:
         self.connect_flags: cp.connect_flags = cp.connect_flags(2)
         self.keep_alive = None
         self.packet_identifier = None
+        self.packet_identifier_msb = None
+        self.packet_identifier_lsb = None
 
         # payload
         self.client_identifier: str = None
@@ -30,7 +32,6 @@ class processing:
         self.user_name = None
         self.password = None
         self.topics = []
-
 
         # logic
 
@@ -63,6 +64,7 @@ class processing:
 
         elif self.type == 2:
             print("CONNACK")
+            pass
 
         elif self.type == 3:
             print("PUBLISH")
@@ -83,25 +85,36 @@ class processing:
             print("SUBSCRIBE")
             cp.subscribe.extract_variable_header(self)
             cp.subscribe.extract_payload_data(self)
-            # self.response_message = cp.connack.build(self)
+            self.response_message = cp.suback.build(self)
+            print("suback msg: ", cp.suback.build(self))
+            print("suback msg: ", bytearray(cp.suback.build(self)))
 
         elif self.type == 9:
             print("SUBACK")
+            # implemented
+            pass
 
         elif self.type == 10:
             print("UNSUBSCRIBE")
+            pass
 
         elif self.type == 11:
             print("UNSUBACK")
+            # implemented
+            pass
 
         elif self.type == 12:
             print("PINGREQ")
+            pass
+
 
         elif self.type == 13:
             print("PINGRESP")
 
         elif self.type == 14:
             print("DISCONNECT")
+            pass
+
 
         else:
             print("forbidden")
