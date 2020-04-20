@@ -13,7 +13,7 @@ class subscribe():
                 return
             topic_qos_pair.append(cp.extract_string(packet_info))
             topic_qos_pair.append(packet_info.pop_a_msb())
-            packet_info.topics.append(topic_qos_pair)
+            packet_info.subscribed_topics.append(topic_qos_pair)
 
     @staticmethod
     def extract_variable_header(packet_info: cp.processing):

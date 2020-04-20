@@ -4,8 +4,8 @@ import control_packets as cp
 class processing:
 
     def __init__(self, received_bytes):
-        self.response_message = None
         # packet data - all headers
+        self.response_message = None
         self.bytes = None
         self.reduced_bytes: [] = []
 
@@ -13,17 +13,19 @@ class processing:
 
         # fixed header
         self.type = None
-        self.flags = None
-        # remaining length is the length of variable header bytes + payload bytes
+        self.dupFlag = None
+        self.qosLevel = None
+        self.retain = None
         self.remaining_length = -1
 
         # variable header
         self.protocol_level = None
         self.connect_flags: cp.connect_flags = cp.connect_flags(2)
         self.keep_alive = None
-        self.packet_identifier = None
         self.packet_identifier_msb = None
         self.packet_identifier_lsb = None
+        self.packet_identifier = None
+        self.published_topic = None
 
         # payload
         self.client_identifier: str = None
@@ -31,7 +33,8 @@ class processing:
         self.will_message = None
         self.user_name = None
         self.password = None
-        self.topics = []
+        self.subscribed_topics = []
+        self.published_message = []
 
         # logic
 
@@ -42,7 +45,7 @@ class processing:
 
         print(self.reduced_bytes)
 
-        self.__identify_packet_type()
+        self.__identify_packet_type_n_flags()
         self.__calculate_remaining_size()
         self.process_packet()
 
@@ -60,7 +63,6 @@ class processing:
             cp.connect.extract_payload_data(self)
             self.response_message = cp.connack.build(self)
             # print("connack msg built: ", cp.connack.build(self))
-            # print("connack msg built in bytes: ", bytes(cp.connack.build(self)))
 
         elif self.type == 2:
             print("CONNACK")
@@ -68,6 +70,9 @@ class processing:
 
         elif self.type == 3:
             print("PUBLISH")
+            cp.publish.extract_variable_header(self)
+            cp.publish.extract_payload_data(self)
+
 
         elif self.type == 4:
             print("PUBACK")
@@ -86,8 +91,7 @@ class processing:
             cp.subscribe.extract_variable_header(self)
             cp.subscribe.extract_payload_data(self)
             self.response_message = cp.suback.build(self)
-            print("suback msg: ", cp.suback.build(self))
-            print("suback msg: ", bytearray(cp.suback.build(self)))
+            # print("suback msg: ", cp.suback.build(self))
 
         elif self.type == 9:
             print("SUBACK")
@@ -122,12 +126,23 @@ class processing:
     def pop_a_msb(self):
         return self.reduced_bytes.pop(0)
 
-    def __identify_packet_type(self):
+    def __identify_packet_type_n_flags(self):
 
         self.type = (self.bytes[0] & 240) >> 4
-        self.flags = self.bytes[0] & 15
+        self.__extract_all_flags_from_fixed_header(self.bytes[0] & 15)
         self.pop_a_msb()
-        # print(self.pop_a_msb())
+
+    def __extract_all_flags_from_fixed_header(self, flags):
+        self.dupFlag = flags >> 3
+
+        if (flags & 4) >> 2 == 0 and (flags & 2) >> 1 == 0:
+            self.qosLevel = 0
+        if (flags & 4) >> 2 == 0 and (flags & 2) >> 1 == 1:
+            self.qosLevel = 1
+        if (flags & 4) >> 2 == 1 and (flags & 2) >> 0 == 1:
+            self.qosLevel = 2
+
+        self.retain = flags & 1
 
     def __calculate_remaining_size(self):
         # "Remaining Length calculation"
@@ -138,7 +153,6 @@ class processing:
             try:
                 encoded_byte = self.reduced_bytes[0]
                 self.pop_a_msb()
-                # print(self.pop_a_msb())
 
                 self.remaining_length += (encoded_byte & 127) * multiplier
                 multiplier *= 128

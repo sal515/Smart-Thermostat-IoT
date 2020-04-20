@@ -33,7 +33,7 @@ class suback():
         # FIXME : Logic to choose with QoS is not implemented
 
         # print("# of topics:", packet_info.topics.__len__())
-        topics_num = packet_info.topics.__len__()
+        topics_num = packet_info.subscribed_topics.__len__()
         for i in range(0, topics_num):
             packet.append(success_with_qos_0)
             packet[1] += 1
