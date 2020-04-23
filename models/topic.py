@@ -6,8 +6,6 @@ class topic(Base):
 
     topic_id = Column(Integer, primary_key=True, autoincrement=True)
     topic_name = Column(String)
-    # message_id = Column(Integer)
-    # client_id = Column(Integer)
     messages = relationship("message", back_populates="topic")
     clients = relationship("client", back_populates="topic")
 
