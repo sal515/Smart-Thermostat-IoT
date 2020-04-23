@@ -5,23 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d503fbf4-2943-480d-98ef-0af25ecfdf3f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/3d0ffbd3-7d8f-4ea6-abbc-4a50412052d5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/3d0ffbd3-7d8f-4ea6-abbc-4a50412052d5/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/databaseHelper/iot.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/base.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/message.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/topic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/databaseHelper/databaseHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/databaseHelper/databaseHelper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/clients_table.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/subscribed_clients_table.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/topics_table.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user_info_table.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -158,8 +143,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/databaseHelper/databaseHelper.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="840">
-                  <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+                <state relative-caret-position="336">
+                  <caret line="16" lean-forward="true" selection-end-line="36" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -556,7 +541,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="171098000" />
+    <option name="totallyTimeSpent" value="171217000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -577,7 +562,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Database Console" sideWeight="0.4989339" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.5772921" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.5772921" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49733475" weight="0.36836404" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
@@ -585,10 +570,10 @@
       <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="8" sideWeight="0.4989339" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4227079" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.35820895" side_tool="true" visible="true" weight="0.27735645" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.59648186" side_tool="true" weight="0.30119178" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.40298507" weight="0.30119178" />
-      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.6423241" weight="0.27735645" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.64179105" visible="true" weight="0.27735645" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -985,8 +970,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/databaseHelper/databaseHelper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="336">
+          <caret line="16" lean-forward="true" selection-end-line="36" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
