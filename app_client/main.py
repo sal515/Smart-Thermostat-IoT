@@ -1,93 +1,108 @@
 # Testing mosquitto broker with  the python paho mqtt client library
-import paho.mqtt.client as mqtt
 import time
+import json
 import socket
+import app_client.mqtt as mqtt_functions
+import app_client.ui as ui
+import databaseHelper as dbHelper
 
-
-def on_message(client, userdata, message):
-    print("Received message '" + str(message.payload) + "' on topic '"
-          + message.topic + "' with QoS " + str(message.qos))
-
-
-def on_connect(client, userdata, flags, rc):
-    print("Connection returned result: {}".format(mqtt.connack_string(rc)))
-
-
-def on_disconnect(client, userdata, rc):
-    if rc != 0:
-        print("Unexpected disconnection.")
-
-
-def on_subscribe(client, userdata, mid, granted_qos):
-    print("Subscribed")
-    pass
-
-
-def on_unsubscribe(client, userdata, mid):
-    # print("Unsubscribed")
-    pass
-
-
-def on_publish(client, userdata, mid):
-    # print("Published : {}".format(mqtt. connack_string(rc)))
-    print("Published : {}".format(mid))
-
-    # print("Connection returned result: {}".format(mqtt.connack_string(rc)))
-
-    pass
-
-
-def on_socket_open(client, userdata, sock):
-    # print("Connection returned result: {}".format(mqtt.connack_string(rc)))
-    pass
-
-
-def on_socket_close(client, userdata, sock):
-    # print("Connection returned result: {}".format(mqtt.connack_string(rc)))
-    pass
-
-
+# MQTT and Network Variables
 myIP = socket.gethostbyname(socket.gethostname())
-print(myIP)
-topic = "yes"
-topic1 = ("yes", 0)
-topic2 = ("yess", 0)
-topic3 = ("yesss", 0)
+serverIP = myIP
+serverPort = 1883
+# serverPort = 1881  # test server port
+topic_name = "smart_home/thermostat"
 
-client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
+client = mqtt_functions.create_client(client_id="Client1")
+# mqtt_functions.enable_callbacks(client)
+mqtt_functions.connect(client, serverIP, serverPort)
 
-# client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, protocol=mqtt.MQTTv31, transport="tcp")
-
-# client = mqtt.Client(client_id="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",    clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
-
-client.on_message = on_message
-client.on_connect = on_connect
-client.on_disconnect = on_disconnect
-client.on_subscribe = on_subscribe
-client.on_unsubscribe = on_unsubscribe
-client.on_publish = on_publish
-
-# client.will_set("aTopic", "client will msg", 2, True)
-# client.username_pw_set("me", "yes")
-
-
-# client.connect(host=myIP, port=1883, keepalive=10, bind_address="")
-client.connect(host=myIP, port=1881, keepalive=10, bind_address="")
-
+#  Starting MQTT Client Loop
 client.loop_start()  # start the loop
 
-time.sleep(2)  # wait
+# App initialization
 
-# # print("Subscribing to topic", topic)
-# client.subscribe([topic1, topic2, topic3])
-# # print("Publishing message to topic", topic)
-client.publish(topic, "off")
+# App Variables
+info_on_file = True
+choices = 3
+message: {} = {}
 
-time.sleep(2)  # wait
+test_data = {
+    "is_home": "no",
+    "temperature": "11",
+    "user_name": "Salman"
+}
 
-client.disconnect()
+test_data_s = json.dumps(test_data)
 
-time.sleep(15)  # wait
+# Initialization of the application
+info_on_file, message = ui.initialization(info_on_file, message)
+
+while True:
+
+    if not info_on_file:
+        print("Program setup.")
+        print("")
+
+        message = ui.collect_user_name(message)
+        message = ui.collect_temperature_preference(message)
+
+        dbHelper.json_to_file(message, "user_information")
+        info_on_file = True
+        # print(message)
+
+        # Publish updated message to the server
+        client.publish(topic_name, json.dumps(message))
+
+    choice = ui.user_choice()
+    while not choice.isdigit() and not (int(choice) < choices):
+        print("Invalid input, please try again")
+        choice = ui.user_choice()
+
+    if choice == "0":
+        message = ui.collect_temperature_preference(message)
+        dbHelper.json_to_file(message, "user_information")
+
+        # Publish updated message to the server
+        client.publish(topic_name, json.dumps(message))
 
 
-client.loop_stop()  # stop the loop
+    elif choice == "1":
+        message = {}
+        dbHelper.json_to_file(message, "user_information")
+        info_on_file = False
+        # Publish empty message - which will remove the user from list
+        client.publish(topic_name, json.dumps(message))
+
+
+    elif choice == "2":
+        ui.display_current_information(message)
+
+#  Test code below
+
+# ==========================================
+#
+# client.loop_start()  # start the loop
+#
+# time.sleep(2)  # wait
+#
+# test_data = {
+#     "is_home": "no",
+#     "temperature": "11",
+#     "user_name": "Salman"
+# }
+#
+# test_data_s = json.dumps(test_data)
+#
+# # print("Subscribing to topic", topic_name)
+# client.subscribe(topic_name)
+# # print("Publishing message to topic", topic_name)
+# client.publish(topic_name, test_data_s)
+#
+# time.sleep(2)  # wait
+#
+# # client.disconnect()
+# #
+# # time.sleep(15)  # wait
+#
+# client.loop_stop()  # stop the loop
