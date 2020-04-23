@@ -28,6 +28,10 @@ def create_topic(topic_name: str, messages: [], clients: []):
     return models.topic(topic_name=topic_name, messages=messages, clients=clients)
 
 
+def get_first_topic_by_name(topic_name: str):
+    return session.query(models.topic).filter_by(topic_name=topic_name).first()
+
+
 if __name__ == "__main__":
     from sqlalchemy.orm import sessionmaker
     import models as models
@@ -50,7 +54,8 @@ if __name__ == "__main__":
     session.add(topic1)
     session.commit()
 
-    getTopic = session.query(models.topic).filter_by(topic_name="Topic1").first()
+    getTopic = get_first_topic_by_name(topic_name="Topic1")
+
     print("Topic ---> ", getTopic)
     print("Messages ---> ", getTopic.messages)
     print("Message 0 ---> ", getTopic.messages[0])
