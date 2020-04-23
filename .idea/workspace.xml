@@ -5,13 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d503fbf4-2943-480d-98ef-0af25ecfdf3f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/clients.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/topics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/user_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/3d0ffbd3-7d8f-4ea6-abbc-4a50412052d5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/3d0ffbd3-7d8f-4ea6-abbc-4a50412052d5/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/databaseHelper/iot.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/message.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/topic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databaseHelper/databaseHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/databaseHelper/databaseHelper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/clients_table.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/subscribed_clients_table.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/topics_table.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user_info_table.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +43,44 @@
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1587356031819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$test_simpleServer.coverage" NAME="test_simpleServer Coverage Results" MODIFIED="1587200910760" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$relayserver.coverage" NAME="relayserver Coverage Results" MODIFIED="1587261533683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Smart_Thermostat_IoT$databaseHelper.coverage" NAME="databaseHelper Coverage Results" MODIFIED="1587672057297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/databaseHelper" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="iot" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="iot" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="iot" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="iot" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+        <item name="sqlite_master: table" type="3d80ac25:SqliteImplModel$Table" />
+      </path>
+    </expand>
+    <select />
   </component>
   <component name="DockManager">
     <window id="1">
@@ -76,90 +124,63 @@
         </state>
       </content>
     </window>
+    <window id="3">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/models/topic.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="315">
+                    <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/models/base.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="63">
+                    <caret line="3" selection-start-line="3" selection-end-line="4" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/control_packets/processing.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1995">
-                  <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/models/user_info_table.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="231">
-                  <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/models/subscribed_clients_table.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="252">
-                  <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/models/topics_table.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="378">
-                  <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/models/clients_table.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/databaseHelper/databaseHelper.py">
-              <provider selected="true" editor-type-id="text-editor" />
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="840">
+                  <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/models/__init__.py">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="84">
-                  <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-                  <folding>
-                    <element signature="e#23#51#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="336">
+                  <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/databaseHelper/__init__.py">
+            <entry file="file://$PROJECT_DIR$/models/client.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="21">
-                  <caret line="1" selection-start-line="1" selection-end-line="1" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app_server/server.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
-                  <folding>
-                    <element signature="e#0#11#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="378">
+                  <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
                 </state>
               </provider>
             </entry>
@@ -167,39 +188,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/control_packets/processing.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2730">
-                  <caret line="131" selection-start-line="131" selection-end-line="131" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/control_packets/methods/common_methods.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="42">
-                  <caret line="2" selection-start-line="2" selection-end-line="2" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/control_packets/methods/subscribe.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="168">
-                  <caret line="8" selection-start-line="8" selection-end-line="9" />
-                </state>
-              </provider>
-            </entry>
-          </file>
+        <leaf>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/requirements.txt">
+            <entry file="file://$PROJECT_DIR$/models/message.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="42">
-                  <caret line="2" lean-forward="true" selection-start-line="1" selection-end-line="2" />
+                <state relative-caret-position="357">
+                  <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
                 </state>
               </provider>
             </entry>
@@ -220,9 +214,7 @@
       <find>def</find>
       <find>remaining_length</find>
       <find>selfindex</find>
-      <find>self.</find>
       <find>pop</find>
-      <find>self</find>
       <find>packet_info.byte_list_index</find>
       <find>pop_a_msb</find>
       <find>self.byte_list_index</find>
@@ -243,8 +235,11 @@
       <find>conn</find>
       <find>qos</find>
       <find>None</find>
-      <find>variable packet</find>
       <find>client_name</find>
+      <find>'%s'</find>
+      <find>variable packet</find>
+      <find>self</find>
+      <find>self.</find>
     </findStrings>
     <replaceStrings>
       <replace>class</replace>
@@ -256,6 +251,7 @@
       <replace>cp.extract_string(packet_info)</replace>
       <replace>_identifier</replace>
       <replace>0</replace>
+      <replace>{}</replace>
       <replace>suback</replace>
     </replaceStrings>
   </component>
@@ -265,15 +261,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/models/models.py" />
-        <option value="$PROJECT_DIR$/application_broker/main.py" />
-        <option value="$PROJECT_DIR$/databaseHelper/__init__.py" />
-        <option value="$PROJECT_DIR$/broker.py" />
-        <option value="$PROJECT_DIR$/control_packets/control_packets.py" />
-        <option value="$PROJECT_DIR$/control_packets/info.py" />
-        <option value="$PROJECT_DIR$/control_packets/flags.py" />
-        <option value="$PROJECT_DIR$/test_simpleServer.py" />
-        <option value="$PROJECT_DIR$/test_simpleServer_mqtt_listener.py" />
         <option value="$PROJECT_DIR$/multiPartyConnection.py" />
         <option value="$PROJECT_DIR$/relayserver.py" />
         <option value="$PROJECT_DIR$/echoserver.py" />
@@ -308,14 +295,23 @@
         <option value="$PROJECT_DIR$/models/model/model.py" />
         <option value="$PROJECT_DIR$/models/model/__init__.py" />
         <option value="$PROJECT_DIR$/models/userInfo.py" />
-        <option value="$PROJECT_DIR$/models/user_info.py" />
         <option value="$PROJECT_DIR$/models/client_info.py" />
         <option value="$PROJECT_DIR$/models/clients.py" />
         <option value="$PROJECT_DIR$/models/topics.py" />
-        <option value="$PROJECT_DIR$/models/clients_table.py" />
         <option value="$PROJECT_DIR$/models/user_info_table.py" />
         <option value="$PROJECT_DIR$/models/subscribed_clients_table.py" />
+        <option value="$PROJECT_DIR$/models/clients_table.py" />
+        <option value="$PROJECT_DIR$/models/subscribed_clients.py" />
+        <option value="$PROJECT_DIR$/models/subscribed_client.py" />
+        <option value="$PROJECT_DIR$/models/user_info.py" />
+        <option value="$PROJECT_DIR$/models/meassage.py" />
+        <option value="$PROJECT_DIR$/models/client.py" />
         <option value="$PROJECT_DIR$/models/__init__.py" />
+        <option value="$PROJECT_DIR$/models/message.py" />
+        <option value="$PROJECT_DIR$/models/topic.py" />
+        <option value="$PROJECT_DIR$/models/base.py" />
+        <option value="$PROJECT_DIR$/databaseHelper/databaseHelper.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -381,7 +377,9 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="database.console.LAST_STATE" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -415,7 +413,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.server">
+  <component name="RunManager" selected="Python.databaseHelper">
+    <configuration name="databaseHelper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Smart-Thermostat-IoT" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/databaseHelper" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/databaseHelper/databaseHelper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="echoserver" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Smart-Thermostat-IoT" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -452,28 +472,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/proxy.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="relayserver" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Smart-Thermostat-IoT" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/relayserver.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -528,11 +526,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.databaseHelper" />
         <item itemvalue="Python.server" />
         <item itemvalue="Python.proxy" />
         <item itemvalue="Python.test_AsynchronousServer" />
         <item itemvalue="Python.echoserver" />
-        <item itemvalue="Python.relayserver" />
       </list>
     </recent_temporary>
   </component>
@@ -558,7 +556,16 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147524000" />
+    <option name="totallyTimeSpent" value="171098000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -568,25 +575,51 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="aws.explorer" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Database Console" sideWeight="0.4989339" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49093816" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.4978678" weight="0.36836404" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.5772921" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49733475" weight="0.36836404" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="5" />
+      <window_info anchor="bottom" id="TODO" order="5" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32936078" />
-      <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.5948827" side_tool="true" visible="true" weight="0.30119178" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.40511727" visible="true" weight="0.30119178" />
-      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.48454157" weight="0.27735645" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Database Changes" order="8" sideWeight="0.4989339" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4227079" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.59648186" side_tool="true" weight="0.30119178" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.40298507" weight="0.30119178" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.6423241" weight="0.27735645" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32995737" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32995737" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13965885" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="aws.explorer" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Database Console" order="0" sideWeight="0.4989339" weight="0.32936078" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" sideWeight="0.48987207" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49733475" weight="0.36836404" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.4989339" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="10" sideWeight="0.3576759" side_tool="true" visible="true" weight="0.27735645" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.59648186" side_tool="true" weight="0.30119178" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.40298507" weight="0.30119178" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.6423241" visible="true" weight="0.27735645" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32995737" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32995737" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -613,15 +646,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/paho/mqtt/matcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1151" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multiPartyConnection.py" />
-    <entry file="file://$PROJECT_DIR$/relayserver.py" />
-    <entry file="file://$PROJECT_DIR$/test_simpleServer_mqtt_listener.py" />
-    <entry file="file://$PROJECT_DIR$/echoserver.py" />
     <entry file="file://C:/Python37/Lib/socketserver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
@@ -743,13 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/control_packets/methods/subscribe.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" selection-start-line="8" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/control_packets/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
@@ -788,16 +805,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -849,10 +856,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/databaseHelper/__init__.py">
+    <entry file="file://$PROJECT_DIR$/models/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state>
+          <caret column="29" lean-forward="true" selection-start-column="29" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/model.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" lean-forward="true" selection-start-line="1" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control_packets/methods/subscribe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" selection-start-line="8" selection-end-line="9" />
         </state>
       </provider>
     </entry>
@@ -863,18 +887,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/__init__.py">
+    <entry file="file://$PROJECT_DIR$/app_server/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="29" lean-forward="true" selection-start-column="29" selection-end-column="29" />
+        <state relative-caret-position="178">
+          <caret line="122" selection-start-line="122" selection-end-line="123" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/databaseHelper/databaseHelper.py">
+    <entry file="file://$PROJECT_DIR$/control_packets/processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://3d0ffbd3-7d8f-4ea6-abbc-4a50412052d5/schema/main/table/client">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/7bf8e30e-d48b-4ccb-9377-474bd560c97e/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/model.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="das://3d0ffbd3-7d8f-4ea6-abbc-4a50412052d5/schema/main/table/sqlite_master">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/paho_example.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -886,45 +931,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
+    <entry file="file://$PROJECT_DIR$/models/subscribed_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" lean-forward="true" selection-start-line="1" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/control_packets/processing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/clients_table.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/topics_table.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/user_info_table.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/subscribed_clients_table.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="273">
+          <caret line="13" lean-forward="true" selection-end-line="13" />
         </state>
       </provider>
     </entry>
@@ -933,8 +943,60 @@
         <state relative-caret-position="84">
           <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
           <folding>
-            <element signature="e#23#51#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/databaseHelper/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/message.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/topic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" selection-start-line="3" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/databaseHelper/databaseHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
