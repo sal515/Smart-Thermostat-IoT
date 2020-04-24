@@ -11,8 +11,11 @@ def connect(client, host: str, port: int = 1883, keepalive: int = 60, bind_addre
     client.connect(host=host, port=port, keepalive=keepalive, bind_address=bind_address)
 
 
-def enable_callbacks(client):
+def enable_on_message_callbacks(client):
     client.on_message = on_message
+
+
+def enable_callbacks(client):
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.on_subscribe = on_subscribe
