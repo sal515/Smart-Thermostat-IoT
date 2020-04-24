@@ -15,7 +15,8 @@ publish_topic_1 = "smart_home/presence_data"
 # subscribe_topic_1 = "smart_home/presence_data"
 
 client = mqtt_functions.create_client(client_id="door_lock_client")
-mqtt_functions.enable_callbacks(client)
+# mqtt_functions.enable_callbacks(client)
+mqtt_functions.enable_on_message_callbacks(client)
 mqtt_functions.connect(client, serverIP, serverPort)
 
 #  Starting MQTT Client Loop
@@ -35,7 +36,10 @@ while True:
 
     choice = ui.user_choice()
     while not choice.isdigit() or (int(choice) > choices or int(choice) < 0):
+        print("")
         print("Invalid input, please try again")
+
+
         choice = ui.user_choice()
 
     if choice == "0":
@@ -62,36 +66,9 @@ while True:
             break
 
         index = -1
+        print("")
         print("List of users present in the house")
         for user in users_list:
             index += 1
             print("{} : UserName = {}, User_inside = {}".format(index, user["user_name"], user["is_home"]))
-
-#  Test code below
-
-# ==========================================
-#
-# client.loop_start()  # start the loop
-#
-# time.sleep(2)  # wait
-#
-# test_data = {
-#     "is_home": "no",
-#     "temperature": "11",
-#     "user_name": "Salman"
-# }
-#
-# test_data_s = json.dumps(test_data)
-#
-# # print("Subscribing to topic", topic_name)
-# client.subscribe(topic_name)
-# # print("Publishing message to topic", topic_name)
-# client.publish(topic_name, test_data_s)
-#
-# time.sleep(2)  # wait
-#
-# # client.disconnect()
-# #
-# # time.sleep(15)  # wait
-#
-# client.loop_stop()  # stop the loop
+        print("")

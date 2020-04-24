@@ -13,8 +13,12 @@ def connect(client, host: str, port: int = 1883, keepalive: int = 60, bind_addre
     client.connect(host=host, port=port, keepalive=keepalive, bind_address=bind_address)
 
 
-def enable_callbacks(client):
+def enable_on_message_callbacks(client):
     client.on_message = on_message
+
+
+def enable_callbacks(client):
+    # client.on_message = on_message
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.on_subscribe = on_subscribe
@@ -26,8 +30,8 @@ def enable_callbacks(client):
 
 
 def on_message(client, userdata, message):
-    print("Received message '" + str(message.payload) + "' on topic '"
-          + message.topic + "' with QoS " + str(message.qos))
+    # print("Received message '" + str(message.payload) + "' on topic '"
+    #       + message.topic + "' with QoS " + str(message.qos))
 
     data = json.loads(message.payload)
     if data["app_info"] == "0":
@@ -46,7 +50,6 @@ def on_message(client, userdata, message):
         if user["user_name"] == data["user_name"]:
             user_exist = True
             break
-
 
     if user_exist:
         users_list[index]["temperature"] = data["temperature"]
