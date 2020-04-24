@@ -1,7 +1,9 @@
 import os
 import json as json
 import models as model
-import databaseHelper.directory_helper as directoryHelper
+import databaseHelper.json_helpers.directory_helper as directoryHelper
+
+from
 
 defaultDirectory = "storage"
 
