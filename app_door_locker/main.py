@@ -1,6 +1,4 @@
 # Testing mosquitto broker with  the python paho mqtt client library
-import time
-import json
 import socket
 import app_door_locker.mqtt as mqtt_functions
 import app_door_locker.ui as ui
@@ -41,7 +39,6 @@ while True:
         users_list: [] = dbHelper.file_to_json("user_information")
 
         index = ui.prompt_with_user_list(users_list)
-        # user = json.loads(users_list[index])
 
         if users_list[index]["is_home"] == 1:
             users_list[index]["is_home"] = 0
@@ -64,7 +61,6 @@ while True:
         index = -1
         print("List of users present in the house")
         for user in users_list:
-            # user = json.loads(user)
             index += 1
             print("{} : UserName = {}, User_inside = {}".format(index, user["user_name"], user["is_home"]))
 

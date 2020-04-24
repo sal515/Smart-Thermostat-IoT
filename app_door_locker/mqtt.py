@@ -29,14 +29,34 @@ def on_message(client, userdata, message):
     print("Received message '" + str(message.payload) + "' on topic '"
           + message.topic + "' with QoS " + str(message.qos))
 
+    data = json.loads(message.payload)
+    if data["app_info"] == 0:
+        return
+
     if not dbHelper.isfile("user_information"):
         # Create empty user list information file
         dbHelper.json_to_file([], "user_information")
 
     users_list: [] = dbHelper.file_to_json("user_information")
-    data = json.loads(message.payload)
-    data["app_info"] = 0
-    users_list.append(data)
+
+    index = -1
+    user_exist = False
+    for user in users_list:
+        index += 1
+        if user["user_name"] == data["user_name"]:
+            user_exist = True
+            break
+
+
+    if user_exist:
+        users_list[index]["temperature"] = data["temperature"]
+        users_list[index]["app_info"] = 0
+        if data["app_info"] == "-1":
+            users_list.pop(index)
+    else:
+        data["app_info"] = 0
+        users_list.append(data)
+
     dbHelper.json_to_file(users_list, "user_information")
 
 
