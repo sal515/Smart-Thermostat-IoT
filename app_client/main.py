@@ -27,14 +27,6 @@ info_on_file = True
 choices = 3
 message: {} = {}
 
-test_data = {
-    "is_home": "no",
-    "temperature": "11",
-    "user_name": "Salman"
-}
-
-test_data_s = json.dumps(test_data)
-
 # Initialization of the application
 info_on_file, message = ui.initialization(info_on_file, message)
 
@@ -44,8 +36,11 @@ while True:
         print("Program setup.")
         print("")
 
+        message["is_home"] = "0"
         message = ui.collect_user_name(message)
         message = ui.collect_temperature_preference(message)
+
+        print(message)
 
         dbHelper.json_to_file(message, "user_information")
         info_on_file = True
