@@ -13,7 +13,7 @@ serverPort = 1883
 # serverPort = 1881  # test server port
 topic_name = "smart_home/thermostat"
 
-client = mqtt_functions.create_client(client_id="Client1")
+client = mqtt_functions.create_client(client_id="app_client")
 # mqtt_functions.enable_callbacks(client)
 mqtt_functions.connect(client, serverIP, serverPort)
 
