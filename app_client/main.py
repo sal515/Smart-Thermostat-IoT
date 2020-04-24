@@ -1,3 +1,7 @@
+# Assumption:
+# User name is unique across all the client applicaiton
+
+
 # Testing mosquitto broker with  the python paho mqtt client library
 import time
 import json
@@ -64,7 +68,7 @@ while True:
 
 
     elif choice == "1":
-        message = {}
+        message["app_info"] = "-1"
         dbHelper.json_to_file(message, "user_information")
         info_on_file = False
         # Publish empty message - which will remove the user from list
