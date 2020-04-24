@@ -3,13 +3,16 @@ import socket
 import app_door_locker.mqtt as mqtt_functions
 import app_door_locker.ui as ui
 import databaseHelper as dbHelper
+import json
 
 # MQTT and Network Variables
 myIP = socket.gethostbyname(socket.gethostname())
 serverIP = myIP
 serverPort = 1883
 # serverPort = 1881  # test server port
-topic_name = "smart_home/thermostat"
+subscribe_topic_1 = "smart_home/user_data"
+publish_topic_1 = "smart_home/presence_data"
+# subscribe_topic_1 = "smart_home/presence_data"
 
 client = mqtt_functions.create_client(client_id="door_lock_client")
 mqtt_functions.enable_callbacks(client)
@@ -18,7 +21,7 @@ mqtt_functions.connect(client, serverIP, serverPort)
 #  Starting MQTT Client Loop
 client.loop_start()  # start the loop
 
-client.subscribe(topic_name)
+client.subscribe(subscribe_topic_1)
 
 # App initialization
 
@@ -40,15 +43,15 @@ while True:
 
         index = ui.prompt_with_user_list(users_list)
 
-        if users_list[index]["is_home"] == 1:
-            users_list[index]["is_home"] = 0
+        if users_list[index]["is_home"] == "1":
+            users_list[index]["is_home"] = "0"
         else:
-            users_list[index]["is_home"] = 1
+            users_list[index]["is_home"] = "1"
 
         dbHelper.json_to_file(users_list, "user_information")
 
         # Publish updated message to the server
-        # client.publish(topic_name, json.dumps(users_list))
+        client.publish(publish_topic_1, json.dumps(users_list[index]))
 
     elif choice == "1":
         users_list: [] = dbHelper.file_to_json("user_information")

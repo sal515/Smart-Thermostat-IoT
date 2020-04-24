@@ -30,14 +30,15 @@ def on_message(client, userdata, message):
           + message.topic + "' with QoS " + str(message.qos))
 
     data = json.loads(message.payload)
-    if data["app_info"] == "0":
+    if data["app_info"] != 0:
         return
 
-    if not dbHelper.isfile("user_information"):
-        # Create empty user list information file
-        dbHelper.json_to_file([], "user_information")
+    # if not dbHelper.isfile("user_information"):
+    #     # Create empty user list information file
+    #     dbHelper.json_to_file([], "user_information")
 
     users_list: [] = dbHelper.file_to_json("user_information")
+    active_list: [] = dbHelper.file_to_json("active_users")
 
     index = -1
     user_exist = False
@@ -47,17 +48,26 @@ def on_message(client, userdata, message):
             user_exist = True
             break
 
-
     if user_exist:
-        users_list[index]["temperature"] = data["temperature"]
-        users_list[index]["app_info"] = "0"
-        if data["app_info"] == "-1":
-            users_list.pop(index)
+        if users_list[index]["is_home"] != "0" and data["is_home"] == "1":
+            #     user entered the house
+            active_list.append(data)
+
+        elif users_list[index]["is_home"] != "1" and data["is_home"] == "0":
+            #     user left the house
+            i = -1
+            for user in active_list:
+                i += 1
+                if user["user_name"] == data["user_name"]:
+                    active_list.pop(i)
+                    break
+        users_list[index] = data
+
     else:
-        data["app_info"] = "0"
         users_list.append(data)
 
     dbHelper.json_to_file(users_list, "user_information")
+    dbHelper.json_to_file(active_list, "active_users")
 
 
 def on_connect(client, userdata, flags, rc):

@@ -15,7 +15,8 @@ myIP = socket.gethostbyname(socket.gethostname())
 serverIP = myIP
 serverPort = 1883
 # serverPort = 1881  # test server port
-topic_name = "smart_home/thermostat"
+publish_topic_1 = "smart_home/user_data"
+# subscribe_topic_1 = "smart_home/thermostat"
 
 client = mqtt_functions.create_client(client_id="app_client")
 # mqtt_functions.enable_callbacks(client)
@@ -52,7 +53,7 @@ while True:
         # print(message)
 
         # Publish updated message to the server
-        client.publish(topic_name, json.dumps(message))
+        client.publish(publish_topic_1, json.dumps(message))
 
     choice = ui.user_choice()
     while not choice.isdigit() or (int(choice) > choices or int(choice) < 0):
@@ -64,7 +65,7 @@ while True:
         dbHelper.json_to_file(message, "user_information")
 
         # Publish updated message to the server
-        client.publish(topic_name, json.dumps(message))
+        client.publish(publish_topic_1, json.dumps(message))
 
 
     elif choice == "1":
@@ -72,7 +73,7 @@ while True:
         dbHelper.json_to_file(message, "user_information")
         info_on_file = False
         # Publish empty message - which will remove the user from list
-        client.publish(topic_name, json.dumps(message))
+        client.publish(publish_topic_1, json.dumps(message))
 
 
     elif choice == "2":
