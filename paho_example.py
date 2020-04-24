@@ -67,7 +67,7 @@ client.on_subscribe = on_subscribe
 client.on_unsubscribe = on_unsubscribe
 client.on_publish = on_publish
 
-# client.will_set("aTopic", "client will msg", 2, True)
+client.will_set("aTopic", "client will msg", 2, True)
 # client.username_pw_set("me", "yes")
 
 
@@ -81,13 +81,14 @@ time.sleep(2)  # wait
 # # print("Subscribing to topic", topic)
 # client.subscribe([topic1, topic2, topic3])
 # # print("Publishing message to topic", topic)
-client.publish(topic, "off")
+client.publish(topic, "off", 2, False)
+
 
 time.sleep(2)  # wait
 
-client.disconnect()
-
-time.sleep(15)  # wait
+# client.disconnect()
+#
+# time.sleep(15)  # wait
 
 
 client.loop_stop()  # stop the loop
