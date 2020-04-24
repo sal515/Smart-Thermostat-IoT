@@ -2,6 +2,8 @@ import paho.mqtt.client as mqtt
 import databaseHelper as dbHelper
 import json
 
+current_temperature = 15
+
 
 def create_client(client_id: str, clean_session: bool = True, userdata: {} = None, protocol=mqtt.MQTTv311,
                   transport="tcp"):
@@ -26,8 +28,10 @@ def enable_callbacks(client):
 
 
 def on_message(client, userdata, message):
-    print("Received message '" + str(message.payload) + "' on topic '"
-          + message.topic + "' with QoS " + str(message.qos))
+    global current_temperature
+
+    # print("Received message '" + str(message.payload) + "' on topic '"
+    #       + message.topic + "' with QoS " + str(message.qos))
 
     data = json.loads(message.payload)
     if data["app_info"] == "-1":
@@ -70,6 +74,20 @@ def on_message(client, userdata, message):
 
     dbHelper.json_to_file(users_list, "user_information")
     dbHelper.json_to_file(active_list, "active_users")
+
+    # Set temperature
+
+    # Empty house
+    if active_list.__len__() < 1:
+        # Temperature = 15
+        current_temperature = 15
+        print("Empty house, temperature set to: {}".format(current_temperature))
+
+    # Active users
+    else:
+        # Temperature set to the first person entered - preference
+        current_temperature = active_list[0]["temperature"]
+        print("Temperature set to {}'s preference: {}".format(active_list[0]["user_name"], current_temperature))
 
 
 def on_connect(client, userdata, flags, rc):
