@@ -1,6 +1,6 @@
 # Testing mosquitto broker with  the python paho mqtt client library
 import socket
-import app_thermostat.thermostat as mqtt_functions
+import app_thermostat.mqtt as mqtt_functions
 import databaseHelper as dbHelper
 
 
@@ -19,7 +19,8 @@ myIP = socket.gethostbyname(socket.gethostname())
 serverIP = myIP
 serverPort = 1883
 # serverPort = 1881  # test server port
-topic_name = "smart_home/thermostat"
+# subscribe_topic_1 = "smart_home/thermostat"
+subscribe_topic_1 = "smart_home/presence_data"
 
 client = mqtt_functions.create_client(client_id="thermostat")
 mqtt_functions.enable_callbacks(client)
@@ -28,7 +29,7 @@ mqtt_functions.connect(client, serverIP, serverPort)
 #  Starting MQTT Client Loop
 client.loop_start()  # start the loop
 
-client.subscribe(topic_name)
+client.subscribe(subscribe_topic_1)
 
 # App initialization
 

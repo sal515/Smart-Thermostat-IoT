@@ -30,7 +30,7 @@ def on_message(client, userdata, message):
           + message.topic + "' with QoS " + str(message.qos))
 
     data = json.loads(message.payload)
-    if data["app_info"] != 0:
+    if data["app_info"] == "-1":
         return
 
     # if not dbHelper.isfile("user_information"):
@@ -49,11 +49,11 @@ def on_message(client, userdata, message):
             break
 
     if user_exist:
-        if users_list[index]["is_home"] != "0" and data["is_home"] == "1":
+        if users_list[index]["is_home"] == "0" and data["is_home"] == "1":
             #     user entered the house
             active_list.append(data)
 
-        elif users_list[index]["is_home"] != "1" and data["is_home"] == "0":
+        elif users_list[index]["is_home"] == "1" and data["is_home"] == "0":
             #     user left the house
             i = -1
             for user in active_list:
@@ -65,6 +65,8 @@ def on_message(client, userdata, message):
 
     else:
         users_list.append(data)
+        if data["is_home"] == "1":
+            active_list.append(data)
 
     dbHelper.json_to_file(users_list, "user_information")
     dbHelper.json_to_file(active_list, "active_users")

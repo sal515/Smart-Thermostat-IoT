@@ -1,1 +1,1 @@
-from .main import *
+from .thermostat import *
