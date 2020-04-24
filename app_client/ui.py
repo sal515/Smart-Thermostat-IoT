@@ -8,8 +8,9 @@ def initialization(info_on_file, message):
         info_on_file = False
     message: {} = dbHelper.file_to_json("user_information")
     message["is_home"] = "0"
+    message["app_info"] = "1"
     # print(list(message.keys()).__len__())
-    if list(message.keys()).__len__() < 2:
+    if list(message.keys()).__len__() < 3:
         info_on_file = False
 
     return info_on_file, message

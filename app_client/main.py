@@ -37,10 +37,11 @@ while True:
         print("")
 
         message["is_home"] = "0"
+        message["app_info"] = "1"
         message = ui.collect_user_name(message)
         message = ui.collect_temperature_preference(message)
 
-        print(message)
+        # print(message)
 
         dbHelper.json_to_file(message, "user_information")
         info_on_file = True
@@ -50,7 +51,7 @@ while True:
         client.publish(topic_name, json.dumps(message))
 
     choice = ui.user_choice()
-    while not choice.isdigit() and not (int(choice) < choices):
+    while not choice.isdigit() or (int(choice) > choices or int(choice) < 0):
         print("Invalid input, please try again")
         choice = ui.user_choice()
 
