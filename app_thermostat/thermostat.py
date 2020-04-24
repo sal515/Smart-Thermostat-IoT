@@ -23,7 +23,8 @@ serverPort = 1883
 subscribe_topic_1 = "smart_home/presence_data"
 
 client = mqtt_functions.create_client(client_id="thermostat")
-mqtt_functions.enable_callbacks(client)
+# mqtt_functions.enable_callbacks(client)
+mqtt_functions.enable_on_message_callbacks(client)
 mqtt_functions.connect(client, serverIP, serverPort)
 
 #  Starting MQTT Client Loop
