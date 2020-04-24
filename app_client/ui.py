@@ -19,10 +19,10 @@ def collect_temperature_preference(message):
     while not message["temperature"].replace(".", "").isdigit():
         message["temperature"] = input(
             "Temperature has to be a float or integer, Please provide temperature value again: : ")
-    message["is_home"] = input("Are you currently at home: (yes/no)")
-    while message["is_home"].lower() != "yes" and message["is_home"].lower() != "no":
-        message["is_home"] = input(
-            "Presence indication has be a string of either yes or not, please provide your answer again: ")
+    # message["is_home"] = input("Are you currently at home: (yes/no)")
+    # while message["is_home"].lower() != "yes" and message["is_home"].lower() != "no":
+    #     message["is_home"] = input(
+    #         "Presence indication has be a string of either yes or not, please provide your answer again: ")
 
     return message
 
