@@ -81,6 +81,8 @@ class processing:
 
         elif self.type == 4:
             print("PUBACK")
+            # implemented
+            pass
 
         elif self.type == 5:
             print("PUBREC")
@@ -110,7 +112,6 @@ class processing:
 
         elif self.type == 11:
             print("UNSUBACK")
-            # implemented
             pass
 
         elif self.type == 12:
