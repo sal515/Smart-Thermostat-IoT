@@ -79,6 +79,16 @@ class processing:
             cp.publish.extract_payload_data(self)
             self.send = False
 
+            if self.qosLevel == 1:
+                self.response_message = cp.puback.build(self)
+                self.send = True
+
+            if self.qosLevel == 2:
+                # Different implementation
+                self.response_message = cp.puback.build(self)
+                self.send = True
+
+
         elif self.type == 4:
             print("PUBACK")
             # implemented
