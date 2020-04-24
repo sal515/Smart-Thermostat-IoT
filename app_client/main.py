@@ -59,6 +59,7 @@ client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, 
 # client = mqtt.Client(client_id="tttttttttt", clean_session=True, userdata=None, protocol=mqtt.MQTTv31, transport="tcp")
 
 # client = mqtt.Client(client_id="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",    clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
+#client.will_set("aTopic", "client will msg", 1, True)
 
 client.on_message = on_message
 client.on_connect = on_connect
@@ -67,12 +68,14 @@ client.on_subscribe = on_subscribe
 client.on_unsubscribe = on_unsubscribe
 client.on_publish = on_publish
 
-# client.will_set("aTopic", "client will msg", 2, True)
+
 # client.username_pw_set("me", "yes")
 
 
 # client.connect(host=myIP, port=1883, keepalive=10, bind_address="")
 client.connect(host=myIP, port=1881, keepalive=10, bind_address="")
+
+client.publish(topic, "off", 1, False)
 
 client.loop_start()  # start the loop
 

@@ -1,6 +1,5 @@
 import control_packets as cp
 
-
 class processing:
 
     def __init__(self, received_bytes):
@@ -77,14 +76,15 @@ class processing:
             print("PUBLISH")
             cp.publish.extract_variable_header(self)
             cp.publish.extract_payload_data(self)
+
             self.send = False
 
             if self.qosLevel == 1:
                 self.response_message = cp.puback.build(self)
                 self.send = True
 
-            if self.qosLevel == 2:
-                # Different implementation
+            elif self.qosLevel == 2:
+                # Different implementation required
                 self.response_message = cp.puback.build(self)
                 self.send = True
 
@@ -130,7 +130,6 @@ class processing:
             self.send = True
             pass
 
-
         elif self.type == 13:
             print("PINGRESP")
             # implemented
@@ -140,7 +139,6 @@ class processing:
             print("DISCONNECT")
             self.disconnect = True
             pass
-
 
         else:
             print("forbidden")
