@@ -18,13 +18,14 @@ def generate_dirPath_filePath(directoryName, fileName):
 def json_to_file(dataObjAsDict, fileName: str, directoryName=defaultDirectory, ascii=True):
     dirPath, fpath = generate_dirPath_filePath(directoryName, fileName)
 
+    if not directoryHelper.checkDir(dirPath):
+        directoryHelper.createDir(directoryName)
+
     fLockPath = fpath + ".lock"
     lock = FileLock(fLockPath)
 
     with lock:
         # print("locked")
-        if not directoryHelper.checkDir(dirPath):
-            directoryHelper.createDir(directoryName)
 
         with open(fpath, "w") as outfile:
             if ascii:
