@@ -73,5 +73,9 @@ def isfile(fileName: str, directoryName=defaultDirectory, debug=False):
 
 
 if __name__ == '__main__':
-    json_to_file({"dataObjAsDict": "a"}, "test")
+    json_to_file({"ele": "a"}, "test")
     # print(fpath)
+
+    js = file_to_json("test")
+
+    print(js["ele"])
