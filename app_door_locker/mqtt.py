@@ -2,6 +2,8 @@ import paho.mqtt.client as mqtt
 import databaseHelper as dbHelper
 import json
 
+database_fileName = "door_locker_info"
+
 
 def create_client(client_id: str, clean_session: bool = True, userdata: {} = None, protocol=mqtt.MQTTv311,
                   transport="tcp"):
@@ -37,11 +39,11 @@ def on_message(client, userdata, message):
     if data["app_info"] == "0":
         return
 
-    if not dbHelper.isfile("user_information"):
+    if not dbHelper.isfile(database_fileName):
         # Create empty user list information file
-        dbHelper.json_to_file([], "user_information")
+        dbHelper.json_to_file([], database_fileName)
 
-    users_list: [] = dbHelper.file_to_json("user_information")
+    users_list: [] = dbHelper.file_to_json(database_fileName)
 
     index = -1
     user_exist = False
@@ -60,7 +62,7 @@ def on_message(client, userdata, message):
         data["app_info"] = "0"
         users_list.append(data)
 
-    dbHelper.json_to_file(users_list, "user_information")
+    dbHelper.json_to_file(users_list, database_fileName)
 
 
 def on_connect(client, userdata, flags, rc):

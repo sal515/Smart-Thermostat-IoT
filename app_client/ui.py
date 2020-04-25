@@ -1,14 +1,16 @@
 import databaseHelper as dbHelper
 
+database_fileName = "user_info"
+
 
 def initialization(info_on_file, message):
-    if not dbHelper.isfile("user_information"):
+    if not dbHelper.isfile(database_fileName):
         # Create empty user information file
         message["is_home"] = "0"
         message["app_info"] = "1"
-        dbHelper.json_to_file(message, "user_information")
+        dbHelper.json_to_file(message, database_fileName)
         info_on_file = False
-    message: {} = dbHelper.file_to_json("user_information")
+    message: {} = dbHelper.file_to_json(database_fileName)
 
     if message["app_info"] == "-1" or list(message.keys()).__len__() < 3:
         info_on_file = False

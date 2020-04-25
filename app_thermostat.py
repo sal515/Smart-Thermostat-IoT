@@ -3,15 +3,18 @@ import socket
 import app_thermostat.mqtt as mqtt_functions
 import databaseHelper as dbHelper
 
+user_database_fileName = "thermostat_user_info"
+active_user_database_fileName = "thermostat_active_user_info"
+
 
 def initialization():
-    if not dbHelper.isfile("user_information"):
+    if not dbHelper.isfile(user_database_fileName):
         # Create empty user list information file
-        dbHelper.json_to_file([], "user_information")
+        dbHelper.json_to_file([], user_database_fileName)
 
-    if not dbHelper.isfile("active_users"):
+    if not dbHelper.isfile(active_user_database_fileName):
         # Create empty active user list information file
-        dbHelper.json_to_file([], "active_users")
+        dbHelper.json_to_file([], active_user_database_fileName)
 
 
 # MQTT and Network Variables
