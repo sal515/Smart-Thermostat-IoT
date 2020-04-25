@@ -1,5 +1,6 @@
 # Testing mosquitto broker with  the python paho mqtt client library
 import paho.mqtt.client as mqtt
+import paho.mqtt.publish as pub
 import time
 import socket
 
@@ -81,8 +82,13 @@ time.sleep(2)  # wait
 # # print("Subscribing to topic", topic)
 # client.subscribe([topic1, topic2, topic3])
 # # print("Publishing message to topic", topic)
+# client.publish(topic, "off", 2, False)
+
 client.publish(topic, "off", 2, False)
 
+# msg = [{"topic": "t1", "payload": "Msg1", "qos": 0, "retain": False}, {"topic": "t2", "payload": "Msg2", "qos": 0, "retain": False}]
+#
+# pub.multiple(msg)
 
 time.sleep(2)  # wait
 

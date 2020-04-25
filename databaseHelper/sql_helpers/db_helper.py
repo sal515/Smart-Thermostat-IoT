@@ -2,10 +2,16 @@ from sqlalchemy.orm import sessionmaker
 import models as models
 from sqlalchemy import create_engine
 
+import databaseHelper.json_helpers.directory_helper as dir
+
+dirName = "storage"
+sql_db_name = 'sqlite:///{}//server.db'.format(dirName)
+
 
 def create_database():
+    dir.createDir(dirName)
     # Create tables if doesn't exist using base and engine
-    engine = create_engine('sqlite:///iot.db', echo=True)
+    engine = create_engine(sql_db_name, echo=False)
     models.Base.metadata.create_all(engine)
     return engine
 
@@ -16,8 +22,8 @@ def create_session(engine):
     return Session()
 
 
-def create_client(client_name: str, client_ip: str, client_port: int):
-    return models.client(client_name=client_name, client_ip=client_ip, client_port=client_port)
+def create_client(client_ip: str, client_port: int, client_qos: int, client_name: str = None, client_type: str = None):
+    return models.client(client_name=client_name, client_ip=client_ip, client_port=client_port, client_qos=client_qos, client_type=client_type)
 
 
 def create_message(name: str, temp: float, is_home: int):
@@ -28,8 +34,17 @@ def create_topic(topic_name: str, messages: [], clients: []):
     return models.topic(topic_name=topic_name, messages=messages, clients=clients)
 
 
-def get_first_topic_by_name(topic_name: str):
+def get_topic_by_name_first(session, topic_name: str):
     return session.query(models.topic).filter_by(topic_name=topic_name).first()
+
+
+def get_client_by_name_ip_one_or_none(session, client_name: str, client_ip: str):
+    return session.query(models.client).filter(models.client.client_name == client_name).filter(
+        models.client.client_ip == client_ip).one_or_none()
+
+
+def get_topic_one_or_none(session, topic_name: str):
+    return session.query(models.topic).filter_by(topic_name=topic_name).one_or_none()
 
 
 if __name__ == "__main__":
@@ -54,7 +69,7 @@ if __name__ == "__main__":
     session.add(topic1)
     session.commit()
 
-    getTopic = get_first_topic_by_name(topic_name="Topic1")
+    getTopic = get_topic_by_name_first(topic_name="Topic1")
 
     print("Topic ---> ", getTopic)
     print("Messages ---> ", getTopic.messages)

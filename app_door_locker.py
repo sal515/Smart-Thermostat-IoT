@@ -1,12 +1,12 @@
 # Testing mosquitto broker with  the python paho mqtt client library
 import socket
+import time
 import app_door_locker.mqtt as mqtt_functions
 import app_door_locker.ui as ui
 import databaseHelper as dbHelper
 import json
 
 database_fileName = "door_locker_info"
-
 
 # MQTT and Network Variables
 myIP = socket.gethostbyname(socket.gethostname())
@@ -25,6 +25,8 @@ mqtt_functions.connect(client, serverIP, serverPort)
 #  Starting MQTT Client Loop
 client.loop_start()  # start the loop
 
+time.sleep(1)
+
 client.subscribe(subscribe_topic_1)
 
 # App initialization
@@ -41,7 +43,6 @@ while True:
     while not choice.isdigit() or (int(choice) > choices or int(choice) < 0):
         print("")
         print("Invalid input, please try again")
-
 
         choice = ui.user_choice()
 
