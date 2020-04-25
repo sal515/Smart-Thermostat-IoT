@@ -10,7 +10,7 @@ def initialization(info_on_file, message):
         info_on_file = False
     message: {} = dbHelper.file_to_json("user_information")
 
-    if message["app_info"] == "-1":
+    if message["app_info"] == "-1" or list(message.keys()).__len__() < 3:
         info_on_file = False
 
     return info_on_file, message
