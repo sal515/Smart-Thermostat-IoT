@@ -32,8 +32,8 @@ def enable_callbacks(client):
 
 
 def on_message(client, userdata, message):
-    print("Received message '" + str(message.payload) + "' on topic '"
-          + message.topic + "' with QoS " + str(message.qos))
+    # print("Received message '" + str(message.payload) + "' on topic '"
+    #       + message.topic + "' with QoS " + str(message.qos))
 
     data = json.loads(message.payload)
     if data["app_info"] == "0":

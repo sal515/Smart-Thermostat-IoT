@@ -92,13 +92,11 @@ class processing:
             # Storing user address to the database
             source = self.sock.getpeername()
 
-            client = sqlHelper.get_client_by_name_ip_one_or_none(session=self.session,
-                                                                 client_name=self.client_identifier,
-                                                                 client_ip=source[0])
+            client = sqlHelper.get_client_by_name_ip_one_or_none(session=self.session, client_name=self.client_identifier, client_ip=source[0])
 
             if client is None:
-                client = sqlHelper.create_client(client_name=self.client_identifier, client_ip=source[0],
-                                                 client_port=source[1], client_qos=self.qosLevel)
+                client = sqlHelper.create_client(client_name=self.client_identifier,client_ip=source[0], client_port=source[1], client_qos=self.qosLevel)
+
                 self.session.add(client)
                 return
 
@@ -147,45 +145,7 @@ class processing:
             self.send = True
             # print("suback msg: ", cp.suback.build(self))
 
-            # Storing user address to the database
-            source = self.sock.getpeername()
-            new_topics = []
-
-            for topic in self.subscribed_topics:
-
-                # check if the user already exist
-                client = sqlHelper.get_client_by_name_ip_one_or_none(session=self.session,
-                                                                     client_name=self.thread_current_client_name,
-                                                                     client_ip=source[0])
-
-                # create a new user if doesn't exist
-                if client is None:
-                    client = sqlHelper.create_client(client_name=self.thread_current_client_name, client_ip=source[0],
-                                                     client_port=source[1], client_qos=self.qosLevel, client_type="sub")
-
-                # FIXME: QOS is updated - Needs more handling?
-                client.client_qos = self.qosLevel
-                client.client_port = source[1]
-
-                if client.client_type is None:
-                    client.client_type = "sub"
-                else:
-                    client.client_type = "pub/sub"
-
-                # access existing topic
-                topic_obj = sqlHelper.get_topic_one_or_none(self.session, topic[0])
-
-                # create a new topic - if doesn't exist
-                if topic_obj is None:
-                    topic_obj = sqlHelper.create_topic(topic_name=topic[0], messages=[], clients=[client])
-                    new_topics.append(topic_obj)
-                    continue
-
-                topic_obj.clients.append(client)
-                # new_topics.append(topic_obj)
-
-            # adding new topics
-            self.session.add_all(new_topics)
+            cp.subscribe.update_subscribers_database(self)
             return
 
         elif self.type == 9:
