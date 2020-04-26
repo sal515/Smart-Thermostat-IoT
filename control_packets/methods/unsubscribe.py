@@ -12,5 +12,4 @@ class unsubscribe():
             if packet_info.reduced_bytes.__len__() < 2:
                 return
             topic_qos_pair.append(cp.extract_string(packet_info))
-            topic_qos_pair.append(packet_info.pop_a_msb())
             packet_info.subscribed_topics.append(topic_qos_pair)
