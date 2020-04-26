@@ -19,6 +19,9 @@ class processing:
         self.response_message = None
         self.send = False
         self.disconnect = False
+        self.publish_to_clients = False
+        self.publish_to_clients_list = []
+        self.message_to_publish = []
 
         self.bytes = None
         self.reduced_bytes: [] = []
@@ -55,12 +58,13 @@ class processing:
         self.subscribed_topics = []
         self.published_message = []
 
-        # logic
+        # ====== logic ======
 
         self.bytes = received_bytes
 
         for byte in received_bytes:
             self.reduced_bytes.append(byte)
+            self.message_to_publish.append(byte)
 
         print(self.reduced_bytes)
 
@@ -112,57 +116,12 @@ class processing:
             print("PUBLISH")
             cp.publish.extract_variable_header(self)
             cp.publish.extract_payload_data(self)
+            cp.publish.publish_to_subscribers(self)
             self.send = False
 
-            # Storing user address to the database
-
-            source = self.sock.getpeername()
-
-            published_msg_str = get_message_str(self.published_message)
-            message = sqlHelper.create_message(published_msg_str)
-
-            # check if user already exists
-            client = sqlHelper.get_client_by_name_ip_one_or_none(session=self.session,
-                                                                 client_name=self.thread_current_client_name,
-                                                                 client_ip=source[0])
-
-            # create a new user if doesn't exist
-            if client is None:
-                client = sqlHelper.create_client(client_name=self.thread_current_client_name, client_ip=source[0],
-                                                 client_port=source[1], client_qos=self.qosLevel, client_type="pub")
-
-            # FIXME: QOS is updated - Needs more handling?
-            client.client_qos = self.qosLevel
-            client.client_port = source[1]
-
-            if client.client_type is None:
-                client.client_type = "pub"
-            else:
-                client.client_type = "pub/sub"
-
-            # access existing topic
-            topic_obj = sqlHelper.get_topic_one_or_none(self.session, self.published_topic)
-
-            # create a new topic - if doesn't exist
-            if topic_obj is None:
-                topic_obj = sqlHelper.create_topic(topic_name=self.published_topic, messages=[message],
-                                                   clients=[client])
-                self.session.add(topic_obj)
-
-            else:
-                topic_obj.messages.append(message)
-                topic_obj.clients.append(client)
-                self.session.add(topic_obj)
-
-            self.session.commit()
-
-            # publishing message received to subscribed users
-            clients = topic_obj.clients
-            subscribed_clients = []
-            for client in clients:
-                if client.client_type == "sub" or client.client_type == "pub/sub":
-                    subscribed_clients.append(client)
-                    # print(client)
+            if self.publish_to_clients_list.__len__() != 0:
+                self.publish_to_clients = True
+            return
 
         elif self.type == 4:
             print("PUBACK")

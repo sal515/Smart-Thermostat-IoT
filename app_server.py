@@ -3,12 +3,18 @@
 
 import time
 
-import control_packets as cp
 import socket
 import threading
 import socketserver
+import queue
 
+import models as models
+import control_packets as cp
 import databaseHelper.sql_helpers.db_helper as sqlHelper
+
+socketsQueue = queue.Queue(0)
+sockets_list = []
+lock = threading.Lock()
 
 # Create engine at the beginning of the app
 engine = sqlHelper.create_database()
@@ -47,23 +53,32 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         while 1:
+            # Storing all the active sockets in an array
+            lock.acquire()
+            sock = self.request
+            if sock not in sockets_list:
+                sockets_list.append(sock)
+            lock.release()
+
+            # print(f"Sockets Array :  {sockets_list}")
+            # print(f"Sockets Array size :  {sockets_list.__len__()}")
+
+            # ======================================================
+            self.print_socket_details()
 
             # database session
             # Create session when new data is required
             db_session = sqlHelper.create_session(engine)
 
-            self.print_socket_details()
-
-            # receiving packet
-            # data = str(self.request.recv(1024), 'ascii')
-            # data = (self.request.recv(1024), 'ascii')
-
+            # receiving data from the socket
             data = (self.request.recv(1024))
 
             print("received by server: ", data)
 
             if not data:
                 break
+
+            # ======================================================
 
             # processing received packets
             try:
@@ -118,6 +133,25 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                 cur_thread = threading.current_thread()
                 print("Current thread: ", cur_thread)
 
+                if packet_info.publish_to_clients:
+                    print(f"publish_to_clients_list :  {packet_info.publish_to_clients_list}")
+                    print(f"message_to_publish :  {packet_info.message_to_publish}")
+                    print(f"sockets_list :  {sockets_list}")
+
+                    for subscriber in packet_info.publish_to_clients_list:
+                        # subscriber: models.client
+                        for sock in sockets_list:
+                            sock_ip = sock.getpeername()[0]
+                            sock_port = sock.getpeername()[1]
+
+                            if subscriber.client_ip == sock_ip and subscriber.client_port == sock_port:
+                                print("Matched socket:  ", sock)
+
+                                # publish message to the socket
+                                print("Response sent: ", bytes(packet_info.message_to_publish))
+
+                                sock.sendall(bytes(packet_info.message_to_publish))
+
                 if packet_info.send:
                     # response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
                     # response = bytes(packet_info.response_message)
@@ -128,12 +162,12 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                 # time.sleep(5)
 
 
-            except Exception as e:
-                if e == "Invalid Protocol":
-                    print("Error: {}".format(e))
+            except Exception as sock:
+                if sock == "Invalid Protocol":
+                    print("Error: {}".format(sock))
                     exit(-1)
                 else:
-                    print(e)
+                    print(sock)
                     exit(-2)
 
 
@@ -157,7 +191,8 @@ if __name__ == "__main__":
     # Port 0 means to select an arbitrary unused port
     myIP = socket.gethostbyname(socket.gethostname())
 
-    HOST, PORT = myIP, 1881
+    # HOST, PORT = myIP, 1881
+    HOST, PORT = myIP, 1883
 
     server = ThreadedTCPServer((HOST, PORT), ThreadedTCPRequestHandler)
     with server:
