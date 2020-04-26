@@ -55,6 +55,7 @@ class processing:
         self.user_name = None
         self.password = None
         self.subscribed_topics = []
+        self.unsubscribed_topics = []
         self.published_message = []
 
         # ====== logic ======
