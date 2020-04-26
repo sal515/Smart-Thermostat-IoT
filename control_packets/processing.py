@@ -77,17 +77,16 @@ class processing:
             cp.publish.extract_variable_header(self)
             cp.publish.extract_payload_data(self)
 
-            self.send = False
-
             if self.qosLevel == 1:
                 self.response_message = cp.puback.build(self)
                 self.send = True
 
             elif self.qosLevel == 2:
-                # Different implementation required
-                self.response_message = cp.puback.build(self)
+                self.response_message = cp.pubrec.build(self)
                 self.send = True
 
+            else:
+                self.send = False
 
         elif self.type == 4:
             print("PUBACK")
@@ -96,12 +95,18 @@ class processing:
 
         elif self.type == 5:
             print("PUBREC")
+            # implemented
+            pass
 
         elif self.type == 6:
             print("PUBREL")
+            # implemented
+            pass
 
         elif self.type == 7:
             print("PUBCOMP")
+            # implemented
+            pass
 
         elif self.type == 8:
             print("SUBSCRIBE")

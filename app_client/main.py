@@ -75,7 +75,8 @@ client.on_publish = on_publish
 # client.connect(host=myIP, port=1883, keepalive=10, bind_address="")
 client.connect(host=myIP, port=1881, keepalive=10, bind_address="")
 
-client.publish(topic, "off", 1, False)
+# client.publish(topic, "off", 1)
+client.publish(topic, "off", 2)
 
 client.loop_start()  # start the loop
 
@@ -84,7 +85,7 @@ time.sleep(2)  # wait
 # # print("Subscribing to topic", topic)
 # client.subscribe([topic1, topic2, topic3])
 # # print("Publishing message to topic", topic)
-client.publish(topic, "off")
+# client.publish(topic, "off")
 
 time.sleep(2)  # wait
 

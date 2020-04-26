@@ -10,5 +10,6 @@ from .methods.suback import *
 from .methods.unsuback import *
 from .methods.publish import *
 from .methods.puback import *
+from .methods.pubrec import *
 from .methods.pingreq import *
 from .methods.pingresp import *
