@@ -4,6 +4,8 @@ import json
 
 current_temperature = 15
 
+user_database_fileName = "thermostat_user_info"
+active_user_database_fileName = "thermostat_active_user_info"
 
 def create_client(client_id: str, clean_session: bool = True, userdata: {} = None, protocol=mqtt.MQTTv311,
                   transport="tcp"):
@@ -39,8 +41,8 @@ def on_message(client, userdata, message):
 
     data = json.loads(message.payload)
 
-    users_list: [] = dbHelper.file_to_json("user_information")
-    active_list: [] = dbHelper.file_to_json("active_users")
+    users_list: [] = dbHelper.file_to_json(user_database_fileName)
+    active_list: [] = dbHelper.file_to_json(active_user_database_fileName)
 
     if data["app_info"] == "1":
         return
@@ -90,8 +92,8 @@ def on_message(client, userdata, message):
             if data["is_home"] == "1":
                 active_list.append(data)
 
-    dbHelper.json_to_file(users_list, "user_information")
-    dbHelper.json_to_file(active_list, "active_users")
+    dbHelper.json_to_file(users_list, user_database_fileName)
+    dbHelper.json_to_file(active_list, active_user_database_fileName)
 
     # Set temperature
 

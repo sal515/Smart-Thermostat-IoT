@@ -8,6 +8,8 @@ class client(Base):
     client_name = Column(String)
     client_ip = Column(String)
     client_port = Column(Integer)
+    client_qos = Column(Integer)
+    client_type = Column(String)
     topic_id = Column(Integer, ForeignKey('topic.topic_id'))
 
     topic = relationship("topic", back_populates="clients")
@@ -18,4 +20,4 @@ class client(Base):
     #     self.client_port = client_port
 
     def __repr__(self):
-        return "<client(client_id={}, client_name={}, client_ip={}, client_port={})>".format(self.client_id, self.client_name, self.client_ip, self.client_port)
+        return "<client(client_id={}, client_name={}, client_ip={}, client_port={}, client_qos={}, client_type={})>".format(self.client_id, self.client_name, self.client_ip, self.client_port, self.client_qos, self.client_type)

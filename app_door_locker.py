@@ -1,9 +1,12 @@
 # Testing mosquitto broker with  the python paho mqtt client library
 import socket
+import time
 import app_door_locker.mqtt as mqtt_functions
 import app_door_locker.ui as ui
 import databaseHelper as dbHelper
 import json
+
+database_fileName = "door_locker_info"
 
 # MQTT and Network Variables
 myIP = socket.gethostbyname(socket.gethostname())
@@ -22,6 +25,8 @@ mqtt_functions.connect(client, serverIP, serverPort)
 #  Starting MQTT Client Loop
 client.loop_start()  # start the loop
 
+time.sleep(1)
+
 client.subscribe(subscribe_topic_1)
 
 # App initialization
@@ -39,11 +44,10 @@ while True:
         print("")
         print("Invalid input, please try again")
 
-
         choice = ui.user_choice()
 
     if choice == "0":
-        users_list: [] = dbHelper.file_to_json("user_information")
+        users_list: [] = dbHelper.file_to_json(database_fileName)
 
         index = ui.prompt_with_user_list(users_list)
 
@@ -52,13 +56,13 @@ while True:
         else:
             users_list[index]["is_home"] = "1"
 
-        dbHelper.json_to_file(users_list, "user_information")
+        dbHelper.json_to_file(users_list, database_fileName)
 
         # Publish updated message to the server
         client.publish(publish_topic_1, json.dumps(users_list[index]))
 
     elif choice == "1":
-        users_list: [] = dbHelper.file_to_json("user_information")
+        users_list: [] = dbHelper.file_to_json(database_fileName)
         if users_list.__len__() < 1:
             print("")
             print("No users found to be able to modify presence.")

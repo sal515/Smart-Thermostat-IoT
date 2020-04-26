@@ -1,13 +1,37 @@
+# Assumption: Once client per device ip
+# Assumption: Publisher can publish to one topic per call
+
 import time
 
-import control_packets as cp
 import socket
 import threading
 import socketserver
+import queue
+
+import models as models
+import control_packets as cp
+import databaseHelper.sql_helpers.db_helper as sqlHelper
+
+socketsQueue = queue.Queue(0)
+sockets_list = []
+lock = threading.Lock()
+
+# Create engine at the beginning of the app
+engine = sqlHelper.create_database()
+
+
+# recover message
+# msgStr = ''.join(chr(i) for i in message)
+# msgStr = bytes(m).decode()
+
+def get_message_str(msg):
+    return bytes(msg).decode()
 
 
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
     # class ThreadedTCPRequestHandler(socketserver.StreamRequestHandler):
+
+    client_identifier = None
 
     def print_socket_details(self):
         print(self.request)
@@ -20,29 +44,52 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
         sock_laddr = sock.getsockname()
         sock_raddr = sock.getpeername()
         sock_fd = sock.fileno()
-        print(sock_family)
-        print(sock_type)
-        print(sock_proto)
-        print(sock_laddr)
-        print(sock_raddr)
-        print(sock_fd)
+        print("sock_family: ", sock_family)
+        print("sock_type: ", sock_type)
+        print("sock_proto: ", sock_proto)
+        print("sock_laddr_destination: ", sock_laddr)
+        print("sock_raddr_source: ", sock_raddr)
+        print("sock_fd: ", sock_fd)
 
     def handle(self):
         while 1:
-            # receiving packet
-            # data = str(self.request.recv(1024), 'ascii')
-            # data = (self.request.recv(1024), 'ascii')
+            # Storing all the active sockets in an array
+            lock.acquire()
+            sock = self.request
+            if sock not in sockets_list:
+                sockets_list.append(sock)
+            lock.release()
 
+            # print(f"Sockets Array :  {sockets_list}")
+            # print(f"Sockets Array size :  {sockets_list.__len__()}")
+
+            # ======================================================
+            self.print_socket_details()
+
+            # database session
+            # Create session when new data is required
+            db_session = sqlHelper.create_session(engine)
+
+            # receiving data from the socket
             data = (self.request.recv(1024))
-            # data = (self.rfile.readline())
+
             print("received by server: ", data)
 
             if not data:
                 break
 
+            # ======================================================
+
             # processing received packets
             try:
-                packet_info = cp.processing(data)
+                packet_info = cp.processing(data, self, db_session)
+
+                if self.client_identifier is None:
+                    self.client_identifier = packet_info.client_identifier
+
+                print("client_identifier: ", self.client_identifier)
+
+                db_session.commit()
 
                 debug = 1
                 # debug = 0
@@ -70,7 +117,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                     print("packet_will_message: ", packet_info.will_message)
                     print("packet_user_name: ", packet_info.user_name)
                     print("packet_password: ", packet_info.password)
-                    print("topics: ", packet_info.subscribed_topics)
+                    print("subscribed_topics: ", packet_info.subscribed_topics)
                     print("published_message: ", packet_info.published_message)
 
                     print("packet remaining bytes in list: ", packet_info.reduced_bytes)
@@ -84,6 +131,26 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
                 #  sending response
                 cur_thread = threading.current_thread()
+                print("Current thread: ", cur_thread)
+
+                if packet_info.publish_to_clients:
+                    print(f"publish_to_clients_list :  {packet_info.publish_to_clients_list}")
+                    print(f"message_to_publish :  {packet_info.message_to_publish}")
+                    print(f"sockets_list :  {sockets_list}")
+
+                    for subscriber in packet_info.publish_to_clients_list:
+                        # subscriber: models.client
+                        for sock in sockets_list:
+                            sock_ip = sock.getpeername()[0]
+                            sock_port = sock.getpeername()[1]
+
+                            if subscriber.client_ip == sock_ip and subscriber.client_port == sock_port:
+                                print("Matched socket:  ", sock)
+
+                                # publish message to the socket
+                                print("Response sent: ", bytes(packet_info.message_to_publish))
+
+                                sock.sendall(bytes(packet_info.message_to_publish))
 
                 if packet_info.send:
                     # response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
@@ -95,12 +162,12 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                 # time.sleep(5)
 
 
-            except Exception as e:
-                if e == "Invalid Protocol":
-                    print("Error: {}".format(e))
+            except Exception as sock:
+                if sock == "Invalid Protocol":
+                    print("Error: {}".format(sock))
                     exit(-1)
                 else:
-                    print(e)
+                    print(sock)
                     exit(-2)
 
 
@@ -124,7 +191,8 @@ if __name__ == "__main__":
     # Port 0 means to select an arbitrary unused port
     myIP = socket.gethostbyname(socket.gethostname())
 
-    HOST, PORT = myIP, 1881
+    # HOST, PORT = myIP, 1881
+    HOST, PORT = myIP, 1883
 
     server = ThreadedTCPServer((HOST, PORT), ThreadedTCPRequestHandler)
     with server:
@@ -138,16 +206,44 @@ if __name__ == "__main__":
         server_thread.start()
         print("Server loop running in thread:", server_thread.name)
 
-        # Test subscribe
-        # client(HOST, PORT, b'\x82\x17\x00\x01\x00\x03yes\x00\x00\x04yess\x00\x00\x05yesss\x00')
-        # Test suback
-        # client(ip, port, b'\x90\x05\x00\x01\x00\x00\x00')
-        # Test publish
-        # client(ip, port, b'0\x08\x00\x03yesoff')
-        # Test pinreq
-        # client(ip, port, b'\xc0\x00')
-        # Test pinreqs
-        # client(ip, port, b'\xd0\x00')
+        # debug = 0
+        debug = 1
+        if debug:
+            # Test door monitor - subscribe
+            # b'\x10\x1c\x00\x04MQTT\x04\x02\x00<\x00\x10door_lock_client'
+            # b' \x02\x00\x00'
+            # b'\x82\x19\x00\x01\x00\x14smart_home/user_data\x00'
+            # b'\x90\x03\x00\x01\x00'
+
+            # time.sleep(2)
+            # client(HOST, PORT, b'\x10\x1c\x00\x04MQTT\x04\x02\x00<\x00\x10door_lock_client')
+            # client(HOST, PORT, b'\x82\x19\x00\x01\x00\x14smart_home/user_data\x00')
+            # time.sleep(2)
+            # client(HOST, PORT, b' \x02\x00\x00')
+            # time.sleep(2)
+            # time.sleep(2)
+            # client(HOST, PORT, b'\x90\x03\x00\x01\x00')
+
+            #  ==== Random tests below ====
+
+            # Test Connect
+            # client(HOST, PORT, b'\x10\x1c\x00\x04MQTT\x04\x02\x00<\x00\x10door_lock_client')
+
+            # Test subscribe
+            # client(HOST, PORT, b'\x82\x17\x00\x01\x00\x03yes\x00\x00\x04yess\x00\x00\x05yesss\x00')
+
+            # Test suback
+            # client(ip, port, b'\x90\x05\x00\x01\x00\x00\x00')
+
+            # Test publish
+            # client(ip, port, b'0\x08\x00\x03yesoff')
+
+            # Test pinreq
+            # client(ip, port, b'\xc0\x00')
+
+            # Test pinreqs
+            # client(ip, port, b'\xd0\x00')
+            pass
 
         server_thread.join()
 

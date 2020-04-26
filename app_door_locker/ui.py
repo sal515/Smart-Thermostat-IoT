@@ -1,10 +1,12 @@
 import databaseHelper as dbHelper
 
+database_fileName = "door_locker_info"
+
 
 def initialization():
-    if not dbHelper.isfile("user_information"):
+    if not dbHelper.isfile(database_fileName):
         # Create empty user list information file
-        dbHelper.json_to_file([], "user_information")
+        dbHelper.json_to_file([], database_fileName)
 
 
 def prompt_with_user_list(users_list: []):

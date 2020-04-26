@@ -10,6 +10,8 @@ import app_client.mqtt as mqtt_functions
 import app_client.ui as ui
 import databaseHelper as dbHelper
 
+database_fileName = "user_info"
+
 # MQTT and Network Variables
 myIP = socket.gethostbyname(socket.gethostname())
 serverIP = myIP
@@ -49,7 +51,7 @@ while True:
 
         # print(message)
 
-        dbHelper.json_to_file(message, "user_information")
+        dbHelper.json_to_file(message, database_fileName)
         info_on_file = True
 
         # Publish updated message to the server
@@ -62,14 +64,14 @@ while True:
 
     if choice == "0":
         message = ui.collect_temperature_preference(message)
-        dbHelper.json_to_file(message, "user_information")
+        dbHelper.json_to_file(message, database_fileName)
 
         # Publish updated message to the server
         client.publish(publish_topic_1, json.dumps(message))
 
     elif choice == "1":
         message["app_info"] = "-1"
-        dbHelper.json_to_file(message, "user_information")
+        dbHelper.json_to_file(message, database_fileName)
         info_on_file = False
         # Publish empty message - which will remove the user from list
         client.publish(publish_topic_1, json.dumps(message))
