@@ -26,8 +26,8 @@ def create_client(client_ip: str, client_port: int, client_qos: int, client_name
     return models.client(client_name=client_name, client_ip=client_ip, client_port=client_port, client_qos=client_qos, client_type=client_type)
 
 
-def create_message(name: str, temp: float, is_home: int):
-    return models.message(name=name, temp=temp, is_home=is_home)
+def create_message(message: str):
+    return models.message(message=message)
 
 
 def create_topic(topic_name: str, messages: [], clients: []):
@@ -47,6 +47,7 @@ def get_topic_one_or_none(session, topic_name: str):
     return session.query(models.topic).filter_by(topic_name=topic_name).one_or_none()
 
 
+
 if __name__ == "__main__":
     from sqlalchemy.orm import sessionmaker
     import models as models
@@ -61,8 +62,8 @@ if __name__ == "__main__":
     client1 = create_client("dev1", "111.111", 110)
     client2 = create_client(client_name="dev2", client_ip="222.222", client_port=220)
 
-    message1 = create_message(name="Bel", temp=24.5, is_home=0)
-    message2 = create_message(name="Al", temp=21.3, is_home=1)
+    message1 = create_message(message="Bel", temp=24.5, is_home=0)
+    message2 = create_message(message="Al", temp=21.3, is_home=1)
 
     topic1 = create_topic(topic_name="Topic1", messages=[message1, message2], clients=[client1, client2])
 
