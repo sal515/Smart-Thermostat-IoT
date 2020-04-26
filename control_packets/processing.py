@@ -1,12 +1,26 @@
 import control_packets as cp
+import databaseHelper.sql_helpers.db_helper as sqlHelper
+import socket
+
+
+def get_message_str(msg):
+    return bytes(msg).decode()
 
 class processing:
 
-    def __init__(self, received_bytes):
+    def __init__(self, received_bytes, thread_data, db_session):
+        self.session = db_session
+
+        self.sock: socket.socket = thread_data.request
+        self.thread_current_client_name = thread_data.client_identifier
+
         # packet data - all headers
         self.response_message = None
         self.send = False
         self.disconnect = False
+        self.publish_to_clients = False
+        self.publish_to_clients_list = []
+        self.message_to_publish = []
 
         self.bytes = None
         self.reduced_bytes: [] = []
@@ -30,7 +44,12 @@ class processing:
         self.published_topic = None
 
         # payload
+
+        # if thread_data.client_identifier is None:
+        #     self.client_identifier: str = None
+
         self.client_identifier: str = None
+
         self.will_topic = None
         self.will_message = None
         self.user_name = None
@@ -38,12 +57,13 @@ class processing:
         self.subscribed_topics = []
         self.published_message = []
 
-        # logic
+        # ====== logic ======
 
         self.bytes = received_bytes
 
         for byte in received_bytes:
             self.reduced_bytes.append(byte)
+            self.message_to_publish.append(byte)
 
         print(self.reduced_bytes)
 
@@ -58,6 +78,7 @@ class processing:
 
         if self.type == 0:
             print("Reserved")
+            return
 
         elif self.type == 1:
             print("CONNECT")
@@ -67,46 +88,63 @@ class processing:
             self.send = True
             # print("connack msg built: ", cp.connack.build(self))
 
+            # Storing user address to the database
+            source = self.sock.getpeername()
+
+            client = sqlHelper.get_client_by_name_ip_one_or_none(session=self.session, client_name=self.client_identifier, client_ip=source[0])
+
+            if client is None:
+                client = sqlHelper.create_client(client_name=self.client_identifier,client_ip=source[0], client_port=source[1], client_qos=self.qosLevel)
+
+                self.session.add(client)
+                return
+
+            client.client_port = source[1]
+            client.client_qos = self.qosLevel
+
+            return
+
         elif self.type == 2:
             print("CONNACK")
             # implemented
-            pass
+            return
 
         elif self.type == 3:
             print("PUBLISH")
             cp.publish.extract_variable_header(self)
             cp.publish.extract_payload_data(self)
+            cp.publish.publish_to_subscribers(self)
+            self.send = False
+            # if self.qosLevel == 1:
+            #     self.response_message = cp.puback.build(self)
+            #     self.send = True
+            # 
+            # elif self.qosLevel == 2:
+            #     self.response_message = cp.pubrec.build(self)
+            #     self.send = True
+            #
+            # else:
+            #     self.send = False
 
-            if self.qosLevel == 1:
-                self.response_message = cp.puback.build(self)
-                self.send = True
-
-            elif self.qosLevel == 2:
-                self.response_message = cp.pubrec.build(self)
-                self.send = True
-
-            else:
-                self.send = False
+            if self.publish_to_clients_list.__len__() != 0:
+                self.publish_to_clients = True
+            return
 
         elif self.type == 4:
             print("PUBACK")
-            # implemented
-            pass
+            return
 
         elif self.type == 5:
             print("PUBREC")
-            # implemented
-            pass
+            return
 
         elif self.type == 6:
             print("PUBREL")
-            # implemented
-            pass
+            return
 
         elif self.type == 7:
             print("PUBCOMP")
-            # implemented
-            pass
+            return
 
         elif self.type == 8:
             print("SUBSCRIBE")
@@ -116,37 +154,42 @@ class processing:
             self.send = True
             # print("suback msg: ", cp.suback.build(self))
 
+            cp.subscribe.update_subscribers_database(self)
+            return
+
         elif self.type == 9:
             print("SUBACK")
             # implemented
-            pass
+            return
 
         elif self.type == 10:
             print("UNSUBSCRIBE")
-            pass
+            return
 
         elif self.type == 11:
             print("UNSUBACK")
-            pass
+            # implemented
+            return
 
         elif self.type == 12:
             print("PINGREQ")
             self.response_message = cp.pingresp.build(self)
             self.send = True
-            pass
+            return
 
         elif self.type == 13:
             print("PINGRESP")
             # implemented
-            pass
+            return
 
         elif self.type == 14:
             print("DISCONNECT")
             self.disconnect = True
-            pass
+            return
 
         else:
             print("forbidden")
+            return
 
     def pop_a_msb(self):
         return self.reduced_bytes.pop(0)

@@ -1,14 +1,10 @@
 
 venv/
 
-broker/__pycache__/
+**/__pycache__/
 
-database_helper/__pycache__/
+**/iot.db
 
-application_broker/database/
+**/storage/
 
-models/__pycache__/
-
-control_packets/__pycache__/
-
-control_packets/methods/__pycache__/
+')
