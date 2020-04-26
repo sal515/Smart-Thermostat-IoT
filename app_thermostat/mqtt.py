@@ -15,6 +15,9 @@ def create_client(client_id: str, clean_session: bool = True, userdata: {} = Non
 
 def connect(client, host: str, port: int = 1883, keepalive: int = 60, bind_address: str = ""):
     client.connect(host=host, port=port, keepalive=keepalive, bind_address=bind_address)
+    global current_temperature
+    current_temperature = 15
+    print("Welcome! The house temperature is set by default to {}".format(current_temperature))
 
 
 def enable_on_message_callbacks(client):
@@ -35,7 +38,6 @@ def enable_callbacks(client):
 
 def on_message(client, userdata, message):
     global current_temperature
-
     # print("Received message '" + str(message.payload) + "' on topic '"
     #       + message.topic + "' with QoS " + str(message.qos))
 

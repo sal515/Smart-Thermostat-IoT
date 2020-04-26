@@ -6,7 +6,6 @@ import socket
 def get_message_str(msg):
     return bytes(msg).decode()
 
-
 class processing:
 
     def __init__(self, received_bytes, thread_data, db_session):
@@ -56,6 +55,7 @@ class processing:
         self.user_name = None
         self.password = None
         self.subscribed_topics = []
+        self.unsubscribed_topics = []
         self.published_message = []
 
         # ====== logic ======
@@ -116,6 +116,16 @@ class processing:
             cp.publish.extract_payload_data(self)
             cp.publish.publish_to_subscribers(self)
             self.send = False
+            # if self.qosLevel == 1:
+            #     self.response_message = cp.puback.build(self)
+            #     self.send = True
+            # 
+            # elif self.qosLevel == 2:
+            #     self.response_message = cp.pubrec.build(self)
+            #     self.send = True
+            #
+            # else:
+            #     self.send = False
 
             if self.publish_to_clients_list.__len__() != 0:
                 self.publish_to_clients = True
@@ -141,11 +151,11 @@ class processing:
             print("SUBSCRIBE")
             cp.subscribe.extract_variable_header(self)
             cp.subscribe.extract_payload_data(self)
+            cp.subscribe.update_subscribers_database(self)
             self.response_message = cp.suback.build(self)
             self.send = True
             # print("suback msg: ", cp.suback.build(self))
 
-            cp.subscribe.update_subscribers_database(self)
             return
 
         elif self.type == 9:
@@ -155,6 +165,11 @@ class processing:
 
         elif self.type == 10:
             print("UNSUBSCRIBE")
+            cp.unsubscribe.extract_variable_header(self)
+            cp.unsubscribe.extract_payload_data(self)
+            cp.unsubscribe.update_unsubscribers_database(self)
+            self.response_message = cp.unsuback.build(self)
+            self.send = True
             return
 
         elif self.type == 11:
@@ -167,7 +182,6 @@ class processing:
             self.response_message = cp.pingresp.build(self)
             self.send = True
             return
-
 
         elif self.type == 13:
             print("PINGRESP")
