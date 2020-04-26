@@ -13,3 +13,5 @@ from .methods.puback import *
 from .methods.pubrec import *
 from .methods.pingreq import *
 from .methods.pingresp import *
+from .methods.unsubscribe import *
+from .methods.unsuback import *

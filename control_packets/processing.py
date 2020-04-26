@@ -151,11 +151,11 @@ class processing:
             print("SUBSCRIBE")
             cp.subscribe.extract_variable_header(self)
             cp.subscribe.extract_payload_data(self)
+            cp.subscribe.update_subscribers_database(self)
             self.response_message = cp.suback.build(self)
             self.send = True
             # print("suback msg: ", cp.suback.build(self))
 
-            cp.subscribe.update_subscribers_database(self)
             return
 
         elif self.type == 9:
@@ -165,6 +165,11 @@ class processing:
 
         elif self.type == 10:
             print("UNSUBSCRIBE")
+            cp.unsubscribe.extract_variable_header(self)
+            cp.unsubscribe.extract_payload_data(self)
+            cp.unsubscribe.update_unsubscribers_database(self)
+            self.response_message = cp.unsuback.build(self)
+            self.send = True
             return
 
         elif self.type == 11:

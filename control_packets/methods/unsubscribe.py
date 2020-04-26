@@ -27,22 +27,32 @@ class unsubscribe():
             byte = packet_info.reduced_bytes[0]
             packet_info.pop_a_msb()
 
-            # print("byte:", byte)
-
             if index == 0:
                 if byte != 0:
                     raise Exception("Invalid packet identifier 1")
                 packet_info.packet_identifier = ((byte & 255) << 8)
                 packet_info.packet_identifier_msb = byte
 
-            # FIXME : Paho request of subscribe doesnt' match documentation of MQTTv311 section 3.8.2.1, figure 3.21
-            # Documentation says the packet identifier lsb should be 10
-            # But the paho is sending the packet identifier lsb equal to 1
-
             elif index == 1:
-                # if byte != 10:
-                #     print(byte)
-                #     raise Exception("Invalid packet identifier 2")
                 packet_info.packet_identifier = packet_info.packet_identifier | (byte & 255)
-                # packet_info.packet_identifier_lsb = 10
                 packet_info.packet_identifier_lsb = byte
+
+    @staticmethod
+    def update_subscribers_database(packet_info: cp.processing):
+        source = packet_info.sock.getpeername()
+
+        for topic in packet_info.unsubscribed_topics:
+            topic_obj = sqlHelper.get_topic_one_or_none(packet_info.session, topic[0])
+            clients_list = topic_obj.clients
+
+            for client in clients_list:
+                if client.client_name == packet_info.thread_current_client_name:
+                    packet_info.session.delete(client)
+
+
+
+
+
+
+
+
