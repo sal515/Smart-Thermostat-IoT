@@ -14,10 +14,6 @@ class client(Base):
 
     topic = relationship("topic", back_populates="clients")
 
-    # def __init__(self, client_name: str, client_ip: str, client_port: int):
-    #     self.client_name = client_name
-    #     self.client_ip = client_ip
-    #     self.client_port = client_port
-
     def __repr__(self):
-        return "<client(client_id={}, client_name={}, client_ip={}, client_port={}, client_qos={}, client_type={})>".format(self.client_id, self.client_name, self.client_ip, self.client_port, self.client_qos, self.client_type)
+        return "<client(client_id={}, client_name={}, client_ip={}, client_port={}, client_qos={}, client_type={})>".format(
+            self.client_id, self.client_name, self.client_ip, self.client_port, self.client_qos, self.client_type)

@@ -27,8 +27,9 @@ def enable_callbacks(client):
 
 
 def on_message(client, userdata, message):
-    print("Received message '" + str(message.payload) + "' on topic '"
-          + message.topic + "' with QoS " + str(message.qos))
+    # print("Received message '" + str(message.payload) + "' on topic '"
+    #       + message.topic + "' with QoS " + str(message.qos))
+    pass
 
 
 def on_connect(client, userdata, flags, rc):
