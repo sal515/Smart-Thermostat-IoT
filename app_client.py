@@ -17,9 +17,7 @@ myIP = socket.gethostbyname(socket.gethostname())
 serverIP = myIP
 serverPort = 1883
 # serverPort = 1881  # test server port
-publish_topic_1 = "smart_home/user_data"
-publish_topic_2 = "smart_home/presence_data"
-# subscribe_topic_1 = "smart_home/thermostat"
+publish_topic_1 = "smart_home/smart_thermostat"
 
 client = mqtt_functions.create_client(client_id="app_client")
 # mqtt_functions.enable_callbacks(client)
@@ -75,7 +73,7 @@ while True:
         info_on_file = False
         # Publish empty message - which will remove the user from list
         client.publish(publish_topic_1, json.dumps(message))
-        client.publish(publish_topic_2, json.dumps(message))
+        client.publish(publish_topic_1, json.dumps(message))
 
     elif choice == "2":
         ui.display_current_information(message)

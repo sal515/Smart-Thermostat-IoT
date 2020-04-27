@@ -13,9 +13,9 @@ myIP = socket.gethostbyname(socket.gethostname())
 serverIP = myIP
 serverPort = 1883
 # serverPort = 1881  # test server port
-subscribe_topic_1 = "smart_home/user_data"
-publish_topic_1 = "smart_home/presence_data"
-# subscribe_topic_1 = "smart_home/presence_data"
+subscribe_topic_1 = "smart_home/smart_thermostat"
+publish_topic_1 = "smart_home/smart_thermostat"
+
 
 client = mqtt_functions.create_client(client_id="door_lock_client")
 # mqtt_functions.enable_callbacks(client)
