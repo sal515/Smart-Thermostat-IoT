@@ -51,6 +51,9 @@ while True:
 
         index = ui.prompt_with_user_list(users_list)
 
+        if index == None:
+            continue
+
         if users_list[index]["is_home"] == "1":
             users_list[index]["is_home"] = "0"
         else:
@@ -67,8 +70,7 @@ while True:
             print("")
             print("No users found to be able to modify presence.")
             print("")
-            break
-
+            continue
         index = -1
         print("")
         print("List of users present in the house")

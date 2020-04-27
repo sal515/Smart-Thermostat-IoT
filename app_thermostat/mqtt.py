@@ -2,7 +2,6 @@ import paho.mqtt.client as mqtt
 import databaseHelper as dbHelper
 import json
 
-current_temperature = 15
 
 user_database_fileName = "thermostat_user_info"
 active_user_database_fileName = "thermostat_active_user_info"
@@ -15,9 +14,6 @@ def create_client(client_id: str, clean_session: bool = True, userdata: {} = Non
 
 def connect(client, host: str, port: int = 1883, keepalive: int = 60, bind_address: str = ""):
     client.connect(host=host, port=port, keepalive=keepalive, bind_address=bind_address)
-    global current_temperature
-    current_temperature = 15
-    print("Welcome! The house temperature is set by default to {}".format(current_temperature))
 
 
 def enable_on_message_callbacks(client):

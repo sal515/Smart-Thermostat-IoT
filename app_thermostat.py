@@ -40,5 +40,7 @@ client.subscribe(subscribe_topic_1)
 # Initialization of the application
 initialization()
 
+print("Welcome! The house temperature is set by default to {}".format(15))
+
 while True:
     pass

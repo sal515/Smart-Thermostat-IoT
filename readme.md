@@ -92,7 +92,14 @@
             * pip install SQLAlchemy
             * Download link: https://pypi.org/project/SQLAlchemy/
             
+    * Virtual environment (Recommended)
+        * virtualenv
+            * python -m pip install --user virtualenv
+            * Download link: https://virtualenv.pypa.io/en/latest/installation.html#via-pip
+            * Installation guide on Windows: https://programwithus.com/learn-to-code/Pip-and-virtualenv-on-Windows/
+                
     * All other imports found in the project are built-in python libraries for standard python installation.
+
 
 ###Python Version - Tested:
 * Python interpreter
@@ -102,5 +109,49 @@
 * Windows 10 Home
 
 ### Installation steps on Windows:
+* Pre-requisites 
+    1. Ensure the following are installed
+       * Python 3.7.2+ should be available
+       * Virtualenv application should be installed
+        
+            * To install virtualenv (Windows 10)
+            
+                a. Open command prompt and verify python and pip is installed 
+                
+                    * pip --version
+                    * python --version 
+            
+                b. Enter the pip command in the terminal: 
+                
+                    * pip install virtualenv
+                
+    2. Create a new Virtual Environment using virtualenv
+        
+        a. To move to the project directory, one can use the following command: 
+             
+             cd C:\...\Smart-Thermostat-IoT
+        
+        b. A virtual environment should be created at the project root directory from the command prompt :
+            
+            virtualenv venv
 
+        c. Activate the virtual environment by issuing the following command from the **project root directory**. This runs the venv activation batch script 
+            
+            venv\Scripts\activate.bat
+        
+        d. If the virtual environment was successfully activated, the command prompt will show (venv) on the left of each new line
+   
+    3. **Install** all the **required python libraries** in the virtual environment using the **requirements.txt** file 
+        
+            * pip install -r requirements.txt
+        
+        * Following the command all the required libraries will be installed in the virtual environment
+        
+   
+   * All the libraries should be installed and setup to run the applications.  
+    
+     
+    
+### Run instructions:
 
+* 
