@@ -2,16 +2,17 @@
 
 ## Description of the Entities 
    The project has three different MQTT client entities and one MQTT server entity.
-   The following section will provide an overview of the use
+   The following section will provide an overview of entities. 
 
    * ##### The MQTT Server Implementation using Python sockets
         * Driver file name (file in project root directory):
                 
                 * app_server.py
             
-            * Other application files in directory
+            * Other required files of the entity are in the directory
                 
                 * control_packets
+                * databaseHelper/sql_helpers
             
         * Brief Description:
         
@@ -26,13 +27,12 @@
                 
                     * app_client.py  
             
-            * Other application files in directory
+            * Other required files of the entity are in the directory
                 * app_client
                 * databaseHelper/json_helpers
             
             * Publish Topics: 
-                * "smart_home/user_data"
-                * "smart_home/presence_data"
+                * "smart_home/smart_thermostat"
             
             * Brief description
                 * Allows the user to provide their name and their preferred temperature room. And publishes the user information to two different topics mentioned above.
@@ -43,15 +43,15 @@
                 
                     * app_door_locker.py 
             
-            * Other application files in directory
+            * Other required files of the entity are in the directory
                 * app_door_locker
                 * databaseHelper/json_helpers
             
             * Subscribed Topics: 
-                * "smart_home/user_data"
+                * "smart_home/smart_thermostat"
                             
             * Published Topics
-                * "smart_home/presence_data"
+                * "smart_home/smart_thermostat"
              
             * Brief description
                 * Emulates a smart monitoring system, that identifies if a person either entered or left the house. For the purpose of the simulation, the application asks the user to change the presence of a user, who have already registered using the User Application mentioned above.
@@ -62,12 +62,12 @@
                 
                     * app_thermostat.py  
             
-            * Other application files in directory
+            * Other required files of the entity are in the directory
                 * app_thermostat
                 * databaseHelper/json_helpers
             
             * Subscribed Topics: 
-               * "smart_home/presence_data"
+               * "smart_home/smart_thermostat"
             
             * Brief description
                 * A smart thermostat simulator, it sets the preferred temperature of person who entered the house the earliest. The temperature is set to the preference of the person first in the queue. 
@@ -76,8 +76,9 @@
 
 
 ###Libraries required for the project:
-* The libraries are listed in the requirements.txt file of the project
+* The libraries are listed in the **requirements.txt** file of the project
     * The **requirements.txt** file can be used to install all the required libraries
+
 * A list of the libraries are provided below:
     
     * MQTT Python Client Library:
@@ -125,17 +126,17 @@
                 
                     * pip install virtualenv
                 
-    2. Create a new Virtual Environment using virtualenv
+    2. Create a new Virtual Environment using the installed virtualenv
         
-        a. To move to the project directory, one can use the following command: 
+        a. Move to the project directory, one can use the following command: 
              
-             cd C:\...\Smart-Thermostat-IoT
+             cd C:\<...>\Smart-Thermostat-IoT
         
-        b. A virtual environment should be created at the project root directory from the command prompt :
+        b. A virtual environment should be created at the project root directory from the command prompt:
             
             virtualenv venv
 
-        c. Activate the virtual environment by issuing the following command from the **project root directory**. This runs the venv activation batch script 
+        c. Activate the virtual environment by issuing the following command from the **project root directory**. This runs the venv activation batch script: 
             
             venv\Scripts\activate.bat
         
@@ -154,4 +155,50 @@
     
 ### Run instructions:
 
-* 
+i. Please open 4 separate command prompts in windows 10
+    
+ii. Activate the virtual environment in each command prompt
+
+   * To activate the virtual environments, in each command prompt do the following steps:
+        
+        * cd <root_directory_of_the_project>
+        
+   * Activate the virtual environment by running: 
+        
+        * venv\Scripts\activate.bat
+
+   * Once all the command prompt window has the virtual environment activated, proceed to the next step     
+iii. Please **run the applications** **in sequence** from the **root directory** of the project:
+    
+     1.  python app_server.py
+     
+     2.  python app_client.py
+     
+     3.  python app_door_locker.py
+     
+     4.  python app_thermostat.py
+
+
+iv. Follow the prompts in each of the user application. 
+
+
+### UI inputs of each application 
+
+* python app_server.py
+    
+    * No inputs, socket and packet detail print outs for publish and subscribe packets
+
+* python app_client.py
+
+    * Username
+    * Preferred Temperature
+    
+* python app_door_locker.py
+
+    * Select from available options of which user is should enter or exit based on current status
+    
+* python app_thermostat.py
+
+    * No input, only current temperature reading
+    
+    
